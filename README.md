@@ -1,6 +1,6 @@
-# Dataframe_Schema
+# DFS (aka Dataframe_Schema)
 
-**DataFrame_Schema** is a lightweight validator for `pandas.DataFrame`. You can think of it as a `jsonschema` for dataframe. 
+**DFS** is a lightweight validator for `pandas.DataFrame`. You can think of it as a `jsonschema` for dataframe. 
 
 Key features:
 1. **Lightweight**: only dependent on `pandas`  and `pydantic` (which depends only on `typing_extensions`)
@@ -18,7 +18,7 @@ Key features:
 Via wrapper
 ```python
 import pandas as pd
-import dataframe_schema as dfs
+import dfs
 
 
 df = pd.DataFrame({
@@ -76,32 +76,7 @@ dfschema generate --format 'yaml' DATA_PATH > schema.yaml
 
 ## Installation
 
-### 1. from Artifactory (recommended)
-
-in one line
-```bash
-pip install dataframe_schema=={VERSION} --extra-index-url https://artifactory.zgtools.net/artifactory/api/pypi/pypi-local/simple
-```
-
-#### Setting Artifactory PyPI server Globally:
-
-```bash
-pip config set global.extra-index-url https://artifactory.zgtools.net/artifactory/api/pypi/pypi-local/simple
-pip install dataframe_schema=={VERSION} 
-```
-#### Setting Artifactory PyPI server via config file per project
-1. Store local `pip.conf` file:
-```
-## pip.conf
-
-[global]
-index-url = https://artifactory.zgtools.net/artifactory/api/pypi/pypi-local/simple --trusted-host artifactory.zgtools.net
-```
-2. next, run `pip install`:
-```bash
-pip install dataframe_schema=={VERSION}
-```
-
+WIP
 
 ## Alternatives
 
