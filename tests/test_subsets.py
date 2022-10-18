@@ -9,7 +9,7 @@ def df_subset():
 
 
 def test_subset_dict(df_subset):
-    from dataframe_schema.core.core import DfSchema
+    from dfs.core.core import DfSchema
 
     D = {
         "metadata": {"protocol_version": 2.0},
@@ -36,7 +36,7 @@ def test_subset_dict(df_subset):
 
 
 def test_subset_query(df_subset):
-    from dataframe_schema.core.core import DfSchema
+    from dfs.core.core import DfSchema
 
     D = {
         "metadata": {"protocol_version": 2.0},
@@ -64,8 +64,8 @@ def test_subset_query(df_subset):
 
 
 def test_subset_query_raises(df_subset):
-    from dataframe_schema.core.core import DfSchema
-    from dataframe_schema.core.exceptions import DataFrameSummaryError
+    from dfs.core.core import DfSchema
+    from dfs.core.exceptions import DataFrameSummaryError
 
     D = {
         "metadata": {"protocol_version": 2.0},

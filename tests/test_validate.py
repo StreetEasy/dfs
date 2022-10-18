@@ -26,7 +26,7 @@ good_schemas = [
 
 @pytest.mark.parametrize("schema", good_schemas)
 def test_validate_df(df1, schema):
-    from dataframe_schema import validate_df
+    from dfs import validate_df
 
     validate_df(df1, schema)
 
@@ -52,7 +52,7 @@ wrong_schemas = [
 @pytest.mark.parametrize("summary", [False, True])
 @pytest.mark.parametrize("schema", wrong_schemas)
 def test_validate_df_raises(df1, summary, schema):
-    from dataframe_schema import (
+    from dfs import (
         validate_df,
         DataFrameValidationError,
         DataFrameSummaryError,
@@ -91,7 +91,7 @@ wrong_schemas2 = [
 
 @pytest.mark.parametrize("schema", good_schemas2)
 def test_validate_df2(df2, schema):
-    from dataframe_schema import validate_df
+    from dfs import validate_df
 
     validate_df(df2, schema)
 
@@ -99,7 +99,7 @@ def test_validate_df2(df2, schema):
 @pytest.mark.parametrize("summary", [False, True])
 @pytest.mark.parametrize("schema", wrong_schemas2)
 def test_validate_df2_raises(df2, summary, schema):
-    from dataframe_schema import (
+    from dfs import (
         validate_df,
         DataFrameValidationError,
         DataFrameSummaryError,
@@ -133,14 +133,14 @@ wrong_schemas3 = [
 
 @pytest.mark.parametrize("schema", good_schemas3)
 def test_validate_nan_str(df3, schema):
-    from dataframe_schema import validate_df
+    from dfs import validate_df
 
     validate_df(df3, schema)
 
 
 @pytest.mark.parametrize("schema", wrong_schemas3)
 def test_validate_df3_raises(df3, schema):
-    from dataframe_schema import validate_df, DataFrameValidationError
+    from dfs import validate_df, DataFrameValidationError
 
     with pytest.raises(DataFrameValidationError):
         validate_df(df3, schema)

@@ -14,7 +14,7 @@ def str_df() -> pd.DataFrame:
 
 
 def test_string_matching(str_df):
-    from dataframe_schema.core.core import DfSchema
+    from dfs.core.core import DfSchema
 
     D = {
         "metadata": {"protocol_version": 2.0},
@@ -30,8 +30,8 @@ def test_string_matching(str_df):
 
 
 def test_string_matching_raises(str_df):
-    from dataframe_schema import DfSchema
-    from dataframe_schema.core.exceptions import DataFrameSummaryError
+    from dfs import DfSchema
+    from dfs.core.exceptions import DataFrameSummaryError
 
     D = {
         "metadata": {"protocol_version": 2.0},
