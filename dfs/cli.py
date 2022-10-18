@@ -1,7 +1,7 @@
 try:
     import typer
 except ImportError:
-    raise ImportError("typer is required, install with `dataframe_schema[cli]` extra")
+    raise ImportError("typer is required, install with `dfs[cli]` extra")
 
 from typing import Optional
 import pandas as pd

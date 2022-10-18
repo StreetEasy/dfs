@@ -6,7 +6,7 @@ runner = CliRunner(mix_stderr=False)
 
 @pytest.mark.parametrize("format", ["json", "yaml"])
 def test_cli_generate(format):
-    from dataframe_schema.cli import app
+    from dfs.cli import app
     import json
     import yaml
 
@@ -23,7 +23,7 @@ def test_cli_generate(format):
 
 
 def test_cli_validate():
-    from dataframe_schema.cli import app
+    from dfs.cli import app
 
     result = runner.invoke(
         app,
@@ -38,7 +38,7 @@ def test_cli_validate():
 
 
 def test_cli_validate_error():
-    from dataframe_schema.cli import app
+    from dfs.cli import app
 
     result = runner.invoke(
         app,

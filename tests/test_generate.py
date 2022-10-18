@@ -2,7 +2,7 @@
 
 
 def test_generate(df1):
-    from dataframe_schema.core import DfSchema
+    from dfs.core import DfSchema
 
     print(df1.dtypes)
 
