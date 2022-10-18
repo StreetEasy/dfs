@@ -24,6 +24,7 @@ pytest = "^5.4.1"
 typer = "^0.4.1"
 pre-commit = "^2.19.0"
 jsonschema2md = "^0.4.0"
+flake8 = "^5.0.4"
 
 [tool.poetry.extras]
 sqlalchemy = ["sqlalchemy"]
