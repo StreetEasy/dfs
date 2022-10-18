@@ -1,0 +1,37 @@
+{
+  "metadata" : {
+    "version": "2022-06-13",
+    "protocol_version": 2.0
+  },
+  "additionalColumns": false,
+  "shape": {
+    "max_rows": 100
+  },
+  "columns": [
+      {
+        "name": "pid",
+        "dtype": "number",
+        "na_limit": 0
+      },
+      {
+        "name": "price",
+        "dtype": "number",
+        "na_limit": 0.99
+      },
+      {
+        "name": "bedrooms",
+        "dtype": "number",
+        "na_limit": 0.99
+      },
+      {
+        "name": "bathrooms",
+        "dtype": "number",
+        "na_limit": 0.99
+      },
+      {
+        "name": "size",
+        "dtype": "number",
+        "na_limit": 0.99
+      }
+    ]
+}

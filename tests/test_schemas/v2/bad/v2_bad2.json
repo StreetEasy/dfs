@@ -1,0 +1,8 @@
+{   
+    "protocol_version": 1.0,
+    "additionalColumns":"very strict",
+    "columns": {
+        "pid": {"na_limit": 1, "dtype":"number"},
+        "price": {"na_limit": 1, "dtype": "number"}
+    }
+}

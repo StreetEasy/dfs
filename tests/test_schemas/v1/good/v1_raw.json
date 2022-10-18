@@ -1,0 +1,10 @@
+{   "strict_cols":true,
+    "shape": {"max_rows": 100}, 
+    "columns": {
+        "pid": {"na_limit": 1, "dtype":"number"},
+        "price": {"na_limit": 1, "dtype": "number"},
+        "bedrooms": {"na_limit": 1, "dtype": "number"},
+        "bathrooms": {"na_limit": 1, "dtype": "number"},
+        "size": {"na_limit": 1, "dtype": "number"}
+    }
+}

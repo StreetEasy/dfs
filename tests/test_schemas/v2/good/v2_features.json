@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "version": "2022-06-13",
+    "protocol_version": 2.0
+  },
+  "shape": null,
+  "additionalColumns": false,
+  "columns": [
+      {
+        "name": "pid",
+        "dtype": "number",
+        "na_limit": 0.1,
+        "value_limits": null,
+        "categorical": null
+      },
+      {
+        "name": "unittype",
+        "dtype": "str",
+        "na_limit": 0.1,
+        "value_limits": null,
+        "categorical": null
+      },
+      {
+        "name": "bedrooms",
+        "dtype": "number",
+        "na_limit": 0.1,
+        "value_limits": null,
+        "categorical": null
+      },
+      {
+        "name": "bathrooms",
+        "dtype": "number",
+        "na_limit": 0.1,
+        "value_limits": null,
+        "categorical": null
+      },
+      {
+        "name": "size",
+        "dtype": "number",
+        "na_limit": 0.1,
+        "value_limits": null,
+        "categorical": null
+      }
+    ]
+}

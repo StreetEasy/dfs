@@ -1,0 +1,388 @@
+{
+  "title": "DfSchema",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "title": "Metadata",
+      "description": "optional metadata, including version and protocol version",
+      "default": {
+        "protocol_version": 2.0,
+        "version": "2022-07-10",
+        "custom_settings": null
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/MetaData"
+        }
+      ]
+    },
+    "shape": {
+      "title": "Shape",
+      "description": "shape expectations",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ShapeSchema"
+        }
+      ]
+    },
+    "columns": {
+      "title": "Columns",
+      "description": "columns expectations",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ColSchema"
+      }
+    },
+    "strict_column_set": {
+      "title": "Strict Column Set",
+      "description": "if true, won't allow any columns not defined in the schema",
+      "default": false,
+      "type": "boolean"
+    },
+    "subsets": {
+      "title": "Subsets",
+      "description": "dataframe subset expectations",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SubsetSchema"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "MetaData": {
+      "title": "MetaData",
+      "type": "object",
+      "properties": {
+        "protocol_version": {
+          "title": "Protocol Version",
+          "description": "protocol version of the schema",
+          "default": 2.0,
+          "type": "number"
+        },
+        "version": {
+          "title": "Version",
+          "description": "version of the schema",
+          "default": "2022-07-10",
+          "example": "2022-06-12",
+          "type": "string"
+        },
+        "custom_settings": {
+          "title": "Custom Settings",
+          "description": "custom settings. does not affect any logic",
+          "type": "object"
+        }
+      }
+    },
+    "ShapeSchema": {
+      "title": "ShapeSchema",
+      "type": "object",
+      "properties": {
+        "rows": {
+          "title": "Rows",
+          "description": "exact number of rows",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "cols": {
+          "title": "Cols",
+          "description": "exact number of columns",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "max_cols": {
+          "title": "Max Cols",
+          "description": "maximum number of columns",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "min_cols": {
+          "title": "Min Cols",
+          "description": "minimum number of columns",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "max_rows": {
+          "title": "Max Rows",
+          "description": "maximum number of rows",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        "min_rows": {
+          "title": "Min Rows",
+          "description": "minimum number of rows",
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ValueLimits": {
+      "title": "ValueLimits",
+      "type": "object",
+      "properties": {
+        "min": {
+          "title": "Min",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "max": {
+          "title": "Max",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Categorical": {
+      "title": "Categorical",
+      "type": "object",
+      "properties": {
+        "value_set": {
+          "title": "Value Set",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "mode": {
+          "title": "Mode",
+          "enum": [
+            "oneof",
+            "exact_set",
+            "include"
+          ],
+          "type": "string"
+        },
+        "unique": {
+          "title": "Unique",
+          "description": "if true, the column must contain only unique values",
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DistributionMetric": {
+      "title": "DistributionMetric",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "enum": [
+            "mean",
+            "std",
+            "median",
+            "quantile"
+          ],
+          "type": "string"
+        },
+        "range": {
+          "title": "Range",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "kwargs": {
+          "title": "Kwargs",
+          "description": "Additional arguments for the metric to be passed via **kwargs",
+          "default": {},
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "range"
+      ],
+      "additionalProperties": false
+    },
+    "Distribution": {
+      "title": "Distribution",
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "title": "Metrics",
+          "default": [],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DistributionMetric"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ColSchema": {
+      "title": "ColSchema",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "description": "Name of the column",
+          "type": "string"
+        },
+        "dtype": {
+          "title": "Dtype",
+          "description": "Data type of the column",
+          "enum": [
+            "bool_",
+            "bool",
+            "object",
+            "str",
+            "character",
+            "string",
+            "number",
+            "numeric",
+            "float",
+            "floating",
+            "integer",
+            "int",
+            "int64",
+            "datetime",
+            "date",
+            "timedelta",
+            "category"
+          ],
+          "type": "string"
+        },
+        "na_limit": {
+          "title": "Na Limit",
+          "description": "limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than that fraction of values are empty (Nan)",
+          "exclusiveMaximum": 1.0,
+          "minimum": 0,
+          "type": "number"
+        },
+        "value_limits": {
+          "title": "Value Limits",
+          "description": "Value limits for the column",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ValueLimits"
+            }
+          ]
+        },
+        "categorical": {
+          "title": "Categorical",
+          "description": "Categorical expectations for the column",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Categorical"
+            }
+          ]
+        },
+        "distribution": {
+          "title": "Distribution",
+          "description": "Distribution expectations for the column",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Distribution"
+            }
+          ]
+        },
+        "str_pattern": {
+          "title": "Str Pattern",
+          "description": "Regex pattern for string columns. Should pass `pd.Series.str.match`",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "SubsetSchema": {
+      "title": "SubsetSchema",
+      "description": "Subset is essentially same as DfSchema,\nexcept it is assumed to run validation on a SUBSET of the dataframe.",
+      "type": "object",
+      "properties": {
+        "predicate": {
+          "title": "Predicate",
+          "description": "\n    predicate to select subset.\n    - If string, will be interpreted as query for `df.query()`.\n    - If dict, keys should be column names, values should be values to exactly match",
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "shape": {
+          "title": "Shape",
+          "description": "shape expectations",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ShapeSchema"
+            }
+          ]
+        },
+        "columns": {
+          "title": "Columns",
+          "description": "columns expectations",
+          "default": [],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ColSchema"
+          }
+        },
+        "strict_column_set": {
+          "title": "Strict Column Set",
+          "description": "if true, won't allow any columns not defined in the schema",
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "predicate"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
