@@ -83,8 +83,8 @@ WIP
 - [GreatExpectations](https://greatexpectations.io/). Large and complex package with Html reports, Airflow Operator, connectors, etc. an work on out-of-memory data, SQL databases, parquet, etc
 - [Pandera](https://pandera.readthedocs.io/en/stable/) - awesome package, great and suitable for type hinting, compatible with `hypothesis`
   - [great talk](https://www.youtube.com/watch?v=PI5UmKi14cM)
-- Tensorflow validate (?)
-
+- [Tensorflow validate](https://www.tensorflow.org/tfx/guide/tfdv)
+- [DTF expectations](https://github.com/calogica/dbt-expectations)
 
 ## Changes
 - [[changelog]]
