@@ -71,7 +71,7 @@ Supports
 
 #### Generate via CLI
 ```shell
-dfschema generate --format 'yaml' DATA_PATH > schema.yaml
+dfs generate --format 'yaml' DATA_PATH > schema.yaml
 ```
 
 ## Installation
