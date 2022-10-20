@@ -77,10 +77,10 @@ jobs:
         with:
            python-version: 3.7
 
-      - name: Set up Poetry 1.1.4
-        uses: abatilo/actions-poetry@v2.0.0
+      - name: Set up Poetry 1.2
+        uses: abatilo/actions-poetry@2.1.6
         with:
-          poetry-version: 1.1.4
+          poetry-version: 1.2
 
       - name: Set up cache
         uses: actions/cache@v1
