@@ -1,5 +1,5 @@
 import logging
-from dfs.core.legacy.v1 import V1_DfSchema
+from dfschema.core.legacy.v1 import V1_DfSchema
 
 
 LegacySchemaRegistry = {1.0: V1_DfSchema}

@@ -63,14 +63,14 @@ max_min_correct = {
 
 @pytest.mark.parametrize("schema", max_min_correct["df1"])
 def test_validate_df1_max_min(df1, schema):
-    from dfs import validate_df
+    from dfschema import validate_df
 
     validate_df(df1, schema)
 
 
 @pytest.mark.parametrize("schema", max_min_correct["df2"])
 def test_validate_df2_max_min(df2, schema):
-    from dfs import validate_df
+    from dfschema import validate_df
 
     validate_df(df2, schema)
 
@@ -87,7 +87,7 @@ wrong_schemas_max_min_df2 = [
 
 @pytest.mark.parametrize("schema", wrong_schemas_max_min_df2)
 def test_validate_df2_max_min_raises(df2, schema):
-    from dfs import validate_df, DataFrameValidationError
+    from dfschema import validate_df, DataFrameValidationError
 
     with pytest.raises(DataFrameValidationError):
         validate_df(df2, schema)

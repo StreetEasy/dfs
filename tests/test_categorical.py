@@ -6,7 +6,7 @@ import pytest
 
 
 def test_df_oneof():
-    from dfs import validate_df, DataFrameSummaryError
+    from dfschema import validate_df, DataFrameSummaryError
 
     df = pd.DataFrame({"x": [1, 2, 3], "y": [0.2, 0.5, 0.99], "z": ["A", "A", "Q"]})
     schema = {
@@ -28,7 +28,7 @@ def test_df_oneof():
 
 # @given(df=cat_df_include())
 def test_df_include():
-    from dfs import validate_df, DataFrameSummaryError
+    from dfschema import validate_df, DataFrameSummaryError
 
     df = pd.DataFrame({"x": [1, 2, 3], "y": [0.2, 0.5, 0.99], "z": ["A", "Q", "Q"]})
 
@@ -49,7 +49,7 @@ def test_df_include():
 
 
 def test_df_unique():
-    from dfs import validate_df, DataFrameSummaryError
+    from dfschema import validate_df, DataFrameSummaryError
 
     df = pd.DataFrame({"x": [1, 2, 3], "y": [0.2, 0.5, 0.99], "z": ["A", "B", "C"]})
     schema = {
