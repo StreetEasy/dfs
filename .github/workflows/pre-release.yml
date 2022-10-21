@@ -86,9 +86,13 @@ jobs:
           name: wheels
           path: dist/
 
+      - name: Set version from tag
+        run: poetry version $GITHUB_REF_NAME"
+
       - name: Install dependencies
         run: |
             poetry install
+
       - name: Build sdist
         run: poetry build -f sdist
 
