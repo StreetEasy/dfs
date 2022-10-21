@@ -18,7 +18,7 @@ Key features:
 Via wrapper
 ```python
 import pandas as pd
-import dfs
+import dfschema as dfs
 
 
 df = pd.DataFrame({
