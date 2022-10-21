@@ -99,7 +99,7 @@ jobs:
           path: dist/
 
       - name: Set version from tag
-        run: poetry version patch
+        run: poetry version $GITHUB_REF_NAME
 
       - name: Install dependencies
         run: |

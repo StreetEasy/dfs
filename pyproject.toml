@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dfschema"
-version = "0.0.0"  # set via gitlab-ci
+version = "0.0.4"  # set via gitlab-ci
 description = "lightweight pandas.DataFrame schema"
 authors = ["Philipp <philippk@zillowgroup.com>"]
 readme = "README.md"
