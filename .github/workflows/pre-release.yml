@@ -86,8 +86,8 @@ jobs:
           name: wheels
           path: dist/
 
-      - name: Set version from tag
-        run: poetry version $GITHUB_REF_NAME"
+      - name: Bump version
+        run: poetry version patch
 
       - name: Install dependencies
         run: |
