@@ -141,7 +141,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
 
     @classmethod
     def from_file(cls, path: Union[str, Path]) -> "DfSchema":
-        """create DfSchema from json file"""
+        """create DfSchema from file (supports json and yaml)"""
 
         if isinstance(path, str):
             path = Path(path)
@@ -150,7 +150,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             if path.suffix == ".json":
                 with path.open("r") as f:
                     schema = json.load(f)
-            elif path.suffix == ".yaml":
+            elif path.suffix == ".yml":
                 try:
                     import yaml
 
@@ -160,11 +160,38 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
                     raise ImportError("PyYaml is required to load yaml files")
             else:
                 raise ValueError(
-                    f"Unsupported file extension: {path.suffix}, should be one of .json or .yaml"
+                    f"Unsupported file extension: {path.suffix}, should be one of .json or .yml"
                 )
             return cls.from_dict(schema)
         except Exception as e:
             raise DataFrameSchemaError(f"Error loading schema from file {path}") from e
+    
+    
+    def to_file(self, path: Union[str, Path]) -> None:
+        '''write DfSchema to file'''
+        if isinstance(path, str):
+            path = Path(path)
+
+        try:
+            schema_dict = self.to_dict()
+            if path.suffix == ".json":
+                with path.open("w") as f:
+                    json.dump(schema_dict, f)
+            elif path.suffix == ".yml":
+                try:
+                    import yaml
+
+                    with path.open("w") as f:
+                        yaml.dump(schema_dict, f)
+                except ImportError:
+                    raise ImportError("PyYaml is required to load yaml files")
+            else:
+                raise ValueError(
+                    f"Unsupported file extension: {path.suffix}, should be one of .json or .yml"
+                )
+            
+        except Exception as e:
+            raise DataFrameSchemaError(f"Error wriging schema to file {path}") from e
 
     @classmethod
     def from_dict(
