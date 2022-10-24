@@ -31,6 +31,7 @@ DtypeAliasPool = {
     "int32": "int",
     "int16": "int",
     # time
+    "datetime64[ns]": "datetime64[ns]",
     "datetime": "datetime64[ns]",
     "date": "datetime64[ns]",
     "timedelta": "timedelta64[ns]",

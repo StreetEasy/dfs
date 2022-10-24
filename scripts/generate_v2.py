@@ -1,5 +1,5 @@
 from pathlib import Path
-from dfs.core.core import DfSchema
+from dfschema.core.core import DfSchema
 
 
 def get_files(path: Path) -> list:
