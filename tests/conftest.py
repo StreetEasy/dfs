@@ -30,6 +30,15 @@ def df3():
     return pd.DataFrame({"x": [np.nan] * 4, "y": ["foo", "bar", "baz", np.nan]})
 
 
+@pytest.fixture()
+def df4():
+    df = pd.DataFrame(
+        {"x": [1, 2, 3, 4], "y": ["foo", "bar", "baz", None], "z": ["2022-10-23",] * 4}
+    )
+    df["z"] = pd.to_datetime(df["z"])
+    return df
+
+
 # This section for `test_jsonvalidate.py`
 
 

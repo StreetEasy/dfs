@@ -40,12 +40,7 @@ wrong_schemas = [
     {"shape": {"min_cols": 3}},
     {"columns": ["x", "y", "z"]},
     {"columns": {"x": {"dtype": "floating"}, "y": {"dtype": "floating"}}},
-    {
-        "columns": {
-            "x": {"dtype": "int"},
-            "y": {"dtype": "character", "na_limit": 0.2},
-        }
-    },
+    {"columns": {"x": {"dtype": "int"}, "y": {"dtype": "character", "na_limit": 0.2},}},
 ]
 
 

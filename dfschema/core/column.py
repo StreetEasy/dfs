@@ -249,7 +249,7 @@ class ColSchema(BaseModel):
             if not self._dtype_test_func[_dtype](series):
                 txt = _tmplt.format(self.name, series.dtype, _dtype, self.dtype)
                 raise DataFrameValidationError(txt)
-        elif series.dtype != self._dtype:
+        elif series.dtype != _dtype:
             txt = _tmplt.format(self.name, series.dtype, _dtype, self.dtype)
             raise DataFrameValidationError(txt)
 

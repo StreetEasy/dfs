@@ -1,5 +1,12 @@
 # Changelog
 
+
+
+
+v0.0.5:
+- fix column dtype generation/validation bug
+
+## Pre-Publication
 v1.3.0
 - renamed strict_column_set to additionalColumns
 - renamed strict_column_order to exactColumnOrder
