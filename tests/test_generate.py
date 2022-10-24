@@ -15,7 +15,7 @@ def test_generate_df1(df1):
     S.validate_df(df1)  # type: ignore
 
 
-def test_generate_df1(df4):
+def test_generate_df4(df4):
     from dfschema.core import DfSchema
 
     print(df4.dtypes)
