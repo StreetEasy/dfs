@@ -21,11 +21,7 @@ def test_subset_dict(df_subset):
             {
                 "predicate": {"y": "baz"},
                 "columns": [
-                    {
-                        "name": "x",
-                        "dtype": "int",
-                        "value_limits": {"min": 3, "max": 3},
-                    }
+                    {"name": "x", "dtype": "int", "value_limits": {"min": 3, "max": 3},}
                 ],
             },
         ],
@@ -49,11 +45,7 @@ def test_subset_query(df_subset):
                 "predicate": "x >= 3",
                 "shape": {"rows": 2},
                 "columns": [
-                    {
-                        "name": "x",
-                        "dtype": "int",
-                        "value_limits": {"max": 4, "min": 3},
-                    }
+                    {"name": "x", "dtype": "int", "value_limits": {"max": 4, "min": 3},}
                 ],
             },
         ],

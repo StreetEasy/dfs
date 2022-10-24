@@ -44,10 +44,7 @@ max_min_correct = {
     ],
     "df2": [  # protocol 1.0
         {
-            "columns": {
-                "x": {"min_value": 1},
-                "y": {"dtype": "string"},
-            },
+            "columns": {"x": {"min_value": 1}, "y": {"dtype": "string"},},
             "strict_cols": True,
         },
         {
