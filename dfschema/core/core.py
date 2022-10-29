@@ -173,7 +173,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             path = Path(path)
 
         try:
-            schema_dict = self.dict(exclude_none=True, exclude_unset=True)
+            schema_dict = self.dict(exclude_none=True)
             if path.suffix == ".json":
                 with path.open("w") as f:
                     json.dump(schema_dict, f)
