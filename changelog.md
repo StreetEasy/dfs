@@ -1,8 +1,5 @@
 # Changelog
 
-
-
-
 v0.0.6:
     - `DfSchema.to_file`, `DfSchema.from_file` proper testing
     - CLI command help texts
