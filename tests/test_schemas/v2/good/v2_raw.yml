@@ -1,0 +1,23 @@
+additionalColumns: false
+columns:
+- dtype: number
+  na_limit: 0.0
+  name: pid
+- dtype: number
+  na_limit: 0.99
+  name: price
+- dtype: number
+  na_limit: 0.99
+  name: bedrooms
+- dtype: number
+  na_limit: 0.99
+  name: bathrooms
+- dtype: number
+  na_limit: 0.99
+  name: size
+exactColumnOrder: false
+metadata:
+  protocol_version: 2.0
+  version: '2022-06-13'
+shape:
+  max_rows: 100

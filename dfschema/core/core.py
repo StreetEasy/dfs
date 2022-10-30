@@ -176,7 +176,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             schema_dict = self.dict(exclude_none=True)
             if path.suffix == ".json":
                 with path.open("w") as f:
-                    json.dump(schema_dict, f)
+                    json.dump(schema_dict, f, indent=4)
             elif path.suffix == ".yml":
                 try:
                     import yaml
