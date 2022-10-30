@@ -165,10 +165,9 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             return cls.from_dict(schema)
         except Exception as e:
             raise DataFrameSchemaError(f"Error loading schema from file {path}") from e
-    
-    
+
     def to_file(self, path: Union[str, Path]) -> None:
-        '''write DfSchema to file'''
+        """write DfSchema to file"""
         if isinstance(path, str):
             path = Path(path)
 
@@ -189,7 +188,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
                 raise ValueError(
                     f"Unsupported file extension: {path.suffix}, should be one of .json or .yml"
                 )
-            
+
         except Exception as e:
             raise DataFrameSchemaError(f"Error wriging schema to file {path}") from e
 
