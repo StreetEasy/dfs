@@ -52,8 +52,8 @@ dfs.DfSchema.from_df(df)
 ### 3. Read and Write Schemas
   
 ```python
-schema = dfs.DfSchema.from_json('schema.json')
-schema.to_yaml("schema.yaml")
+schema = dfs.DfSchema.from_file('schema.json')
+schema.to_file("schema.yml")
 ```
 
 ### 4. Using CLI

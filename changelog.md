@@ -3,8 +3,12 @@
 
 
 
-v0.0.5:
-- fix column dtype generation/validation bug
+v0.0.6:
+    - `DfSchema.to_file`, `DfSchema.from_file` proper testing
+    - CLI command help texts
+    - added pre-commit install to the repo
+    - Some benchmarking
+v0.0.5: fix column dtype generation/validation bug
 
 ## Pre-Publication
 v1.3.0
@@ -26,4 +30,3 @@ v1.1.0
 - better structure of tests and code
 - added `summary` argument. If True, all tests will be ran and errors will be summarized in `DataFrameSummaryError` exception.
 - re-enabled schema generation
-

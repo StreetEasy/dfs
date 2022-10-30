@@ -49,7 +49,9 @@ def validate(
         help="Print summary of validation results. If false, will stop at first violation",
     ),
 ):
-
+    """
+    Validate data from file against given schema
+    """
     if read_kwargs_json is not None:
         import json
 
@@ -78,7 +80,12 @@ def generate(
         prompt=True,
     ),
 ):
+    """
+    Generate Schema from given dataset.
 
+    Will Print Schema to stdout. to write it to the file, use piping:
+    $ dfschema generate data.csv > schema.dfs.json
+    """
     df = _infer_read_df(file)
     S: DfSchema = DfSchema.from_df(df)  # type: ignore
 
