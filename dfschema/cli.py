@@ -82,7 +82,7 @@ def generate(
 ):
     """
     Generate Schema from given dataset.
-    
+
     Will Print Schema to stdout. to write it to the file, use piping:
     $ dfschema generate data.csv > schema.dfs.json
     """
