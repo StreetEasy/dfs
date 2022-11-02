@@ -4,17 +4,25 @@ from .core import DfSchema
 
 
 def validate_df(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
-    """validate dataframe over the scheme
+    """validate dataframe against the schema
 
-    validate dataframe columns, shape, dtypes
-    over the schema
+    validate dataframe agains the schema as a dictionary. will raise
+    either DataFrameSummaryError (if summary=True) or DataFrameValidationError for specific
+    problem (if summary=False)
 
-    Arguments:
-        df -- dataframe to validate
-        schema -- dict -- dictionary to validate against,
-            check wiki for more detaims NOTE: add wiki documentation!
-        summary -- bool -- if False, raise exception as soon as possible, otherwise wait for all checks to be done
-        validate_schema -- bool -- if True, validate schema vs jsonschema standart, otherwise skip it
+    Same as using DfSchema object:
+    ```python
+    Schema = DfSchema.from_dict(schema)
+    Schema.validate_df(df=df, summary=summary)
+    ```
+
+    Args:
+        df (pd.DataFrame): A dataframe to validate
+        schema (dict): schema as a dictionary to validate against
+        summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
+
+    Returns:
+        None
     """
 
     Schema = DfSchema.from_dict(schema)

@@ -41,6 +41,11 @@ class MetaData(BaseModel):
 
 
 class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # type: ignore
+    """Main class of the package
+
+    Represents a Schema to check (validate) dataframe against. Schema
+    is flavor-agnostic (does not specify what kind of dataframe it is)
+    """
 
     metadata: Optional[MetaData] = Field(
         MetaData(),
@@ -99,7 +104,18 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
         )
 
     def validate_df(self, df: pd.DataFrame, summary: bool = True) -> None:
-        """validate dataframe"""
+        """validate Dataframe aganist this schema
+
+        validate dataframe agains the schema as a dictionary. will raise
+        either DataFrameSummaryError (if summary=True) or DataFrameValidationError for specific
+        problem (if summary=False)
+
+        Args:
+            df (pd.DataFrame): A dataframe to validate
+            summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
+        Returns:
+            None
+        """
         self._exception_pool = []
         self._summary = summary
 
@@ -132,16 +148,34 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
         read_sql_kwargs: Optional[dict] = None,
         summary: bool = True,
     ) -> None:
-        """validate SQL table. Function complately based on `pandas.read_sql`
+        """validate SQL table. Relies on `pandas.read_sql` to infer datatypes
 
-        Right now does not support sampling, but could be added in the future
+        Right now does not support sampling, but this could be added in the future
+
+        Args:
+            sql (str): SQL statement (query) to run
+            con (sqlalchemy.connection): connection to the database
+            read_sql_kwargs (dict): Optional set of params to pass to `pd.read_sql_kwargs`
+            summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
+        Returns:
+            None
         """
         df = pd.read_sql(sql, con, **(read_sql_kwargs or {}))
         self.validate_df(df, summary=summary)
 
     @classmethod
     def from_file(cls, path: Union[str, Path]) -> "DfSchema":
-        """create DfSchema from file (supports json and yaml)"""
+        """create DfSchema from file
+
+        Method supports json and yaml formats
+        Note: this is a class method, not instance method.
+        PyYaml package is required to read yaml.
+
+        Args:
+            path (str or Path): path to the file, either json or yaml"
+        Returns:
+            DfSchema: DfSchema object instance
+        """
 
         if isinstance(path, str):
             path = Path(path)
@@ -150,7 +184,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             if path.suffix == ".json":
                 with path.open("r") as f:
                     schema = json.load(f)
-            elif path.suffix == ".yml":
+            elif path.suffix in (".yml", ".yaml"):
                 try:
                     import yaml
 
@@ -167,7 +201,15 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             raise DataFrameSchemaError(f"Error loading schema from file {path}") from e
 
     def to_file(self, path: Union[str, Path]) -> None:
-        """write DfSchema to file"""
+        """write chema to file
+
+        Supports json and yaml.
+
+        Args:
+            path (str, Path): path to write file to.
+        Returns:
+            None
+        """
         if isinstance(path, str):
             path = Path(path)
 
@@ -176,7 +218,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             if path.suffix == ".json":
                 with path.open("w") as f:
                     json.dump(schema_dict, f, indent=4)
-            elif path.suffix == ".yml":
+            elif path.suffix in (".yml", ".yaml"):
                 try:
                     import yaml
 
@@ -197,8 +239,14 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
         cls,
         dict_: dict,
     ) -> "DfSchema":
-        """create DfSchema from dict, same as `DfSchema(**dict_)`\n
-        except this will migrate old schemas if necessary
+        """create DfSchema from dict.
+
+        same as `DfSchema(**dict_)`, but will also migrate old protocol schemas if necessary.
+
+        Args:
+            dict_ (dict): dictionary to generate DfSchema from
+        Returns:
+            DfSchema: instance of DfSchema
         """
 
         pv = infer_protocol_version(dict_)
@@ -216,9 +264,20 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
         subset_predicates: Optional[List[dict]] = None,
         return_dict: bool = False,
     ) -> Union["DfSchema", dict]:
-        """
-        generate Schema object from given dataframe.
-        by default will generate strict schema that given dataframe should match.
+        """generate DfSchema object from given dataframe.
+
+        By default will generate strict schema that given dataframe should match.
+        Do not expect it to generate good schema, rather a scaffolding to build
+        one manually from.
+
+        Note: this is a class method, not an instance method.
+
+        Args:
+            df (pd.DataFrame): dataframe to generate from
+            subset_predicates (List[dict]): Optional list of dictionary predicates to generate subsets from
+            return_dict (bool): wether return a dictionary instead of DfSchema instance (mostly for debugging purposes)
+        Return:
+            Union[DfSchema, dict]: either an instance of a class, or a dictionary
         """
 
         schema = generate_schema_dict_from_df(df)
@@ -241,8 +300,13 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
 
 class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # type: ignore
     """
-    Subset is essentially same as DfSchema,
+    Subset is almost identical to DfSchema,
     except it is assumed to run validation on a SUBSET of the dataframe.
+    It also has a `predicate` attribute that defines way to retrieve this subset from
+    the root dataframe.
+
+    Also it raises `SubsetSummaryError` instead of `DataFrameSummaryError`
+
     """
 
     _predicate_description = """
@@ -305,7 +369,18 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
         )
 
     def validate_df(self, df: pd.DataFrame, root: DfSchema) -> None:
-        """validate dataframe"""
+        """validate Dataframe aganist this schema
+
+        validate dataframe agains the schema as a dictionary. will raise
+        either DataFrameSummaryError (if summary=True) or DataFrameValidationError for specific
+        problem (if summary=False)
+
+        Args:
+            df (pd.DataFrame): A dataframe to validate
+            summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
+        Returns:
+            None
+        """
         self._exception_pool = []
         self._summary = root._summary
 
@@ -331,6 +406,21 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
         predicate: Union[dict, str, Callable],
         return_dict: bool = False,
     ) -> Union["SubsetSchema", dict]:
+        """generate SubsetSchema object from given dataframe and a predicate
+
+        By default will generate strict schema that given dataframe should match.
+        Do not expect it to generate good schema, rather a scaffolding to build
+        one manually from.
+
+        Note: this is a class method, not an instance method.
+
+        Args:
+            df (pd.DataFrame): dataframe to generate from
+            predicate (dict, str, Callable): Predicate to filter by. If string, will use it as an argument to `df.query`.\nIf callable, assumes it to be a function that returns a subset if given a dataframe.\nIf dictionary, will assume keys to be columns and values - sets of possible values.
+            return_dict (bool): wether return a dictionary instead of SubsetSchema instance (mostly for debugging purposes)
+        Return:
+            Union[SubsetSchema, dict]: either an instance of a class, or a dictionary
+        """
         filtered_df = cls._filter(df, predicate=predicate)
 
         schema = generate_schema_dict_from_df(filtered_df)
