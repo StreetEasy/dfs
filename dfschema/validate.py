@@ -10,10 +10,29 @@ def validate_df(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
     either DataFrameSummaryError (if summary=True) or DataFrameValidationError for specific
     problem (if summary=False)
 
-    Same as using DfSchema object:
+    ### Example
     ```python
-    Schema = DfSchema.from_dict(schema)
-    Schema.validate_df(df=df, summary=summary)
+    import json
+    import pandas as pd
+    import dfschema
+    from pathlib import Path
+
+    path = '/schema.json'
+    schema = json.loads(Path(path).read_text())
+
+    df = pd.DataFrame({'a':[1,2], 'b':[3,4]})
+
+    dfschema.validate_df(df, schema, summary=True)
+    ```
+
+    ### Alternative
+    Equivalent to using `dfschema.DfSchema` class (which is recommended):
+
+    ```python
+    from dfschema import DfSchema
+
+    Schema = DfSchema.from_file(path)
+    Schema.validate_df(df=df, summary=True)
     ```
 
     Args:
@@ -21,8 +40,6 @@ def validate_df(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
         schema (dict): schema as a dictionary to validate against
         summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
 
-    Returns:
-        None
     """
 
     Schema = DfSchema.from_dict(schema)

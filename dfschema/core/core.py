@@ -110,11 +110,22 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
         either DataFrameSummaryError (if summary=True) or DataFrameValidationError for specific
         problem (if summary=False)
 
+        ### Example
+        ```python
+        import pandas as pd
+        from dfschema import DfSchema
+
+        path = '/schema.json'
+
+        df = pd.DataFrame({'a':[1,2], 'b':[3,4]})
+        dfs.DfSchema.from_file(path).validate(df)
+        ```
+
         Args:
             df (pd.DataFrame): A dataframe to validate
             summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
-        Returns:
-            None
+
+
         """
         self._exception_pool = []
         self._summary = summary
@@ -372,12 +383,11 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
         """validate Dataframe aganist this schema
 
         validate dataframe agains the schema as a dictionary. will raise
-        either DataFrameSummaryError (if summary=True) or DataFrameValidationError for specific
-        problem (if summary=False)
+        either SubsetSummaryError or DataFrameValidationError for specific
+        problem
 
         Args:
             df (pd.DataFrame): A dataframe to validate
-            summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
         Returns:
             None
         """

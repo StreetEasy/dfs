@@ -1,0 +1,16 @@
+site_name: DfSchema Documentation
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - Quickstart: index.md
+  - new_style.md
+  - old_style.md
+  - Command Line Interface: cli.md
+  - tutorials.md
+  - benchmarks.md
+  - Roadmap and Changelog: rm_and_changelog.md
