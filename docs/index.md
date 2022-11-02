@@ -79,6 +79,9 @@ pip install dfschema
 
 
 ## Alternatives
+
+`Dfschema` is by far is not the only package built for validation. Here is an incomplete list of others:
+
 - [TableScheme](https://pypi.org/project/tableschema/)
 - [GreatExpectations](https://greatexpectations.io/). Large and complex package with Html reports, Airflow Operator, connectors, etc. an work on out-of-memory data, SQL databases, parquet, etc
 - [Pandera](https://pandera.readthedocs.io/en/stable/) - awesome package, great and suitable for type hinting, compatible with `hypothesis`
