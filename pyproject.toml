@@ -6,7 +6,7 @@ authors = ["Philipp <philippk@zillowgroup.com>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-dfshema = "dfshema.cli:app"
+dfschema = "dfschema.cli:app"
 
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4.0"
