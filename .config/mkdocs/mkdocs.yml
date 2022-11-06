@@ -1,4 +1,5 @@
 site_name: DfSchema Documentation
+site_url: https://StreetEasy.github.io/dfs/
 
 theme:
   name: "material"
