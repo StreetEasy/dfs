@@ -256,6 +256,19 @@ python-dateutil = ">=2.8.1"
 dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
+name = "gitchangelog"
+version = "3.0.4"
+description = "gitchangelog generates a changelog thanks to git log."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.extras]
+mako = ["mako"]
+mustache = ["pystache"]
+test = ["mako", "minimock", "nose", "pystache"]
+
+[[package]]
 name = "greenlet"
 version = "1.1.2"
 description = "Lightweight in-process concurrent programming"
@@ -1680,7 +1693,7 @@ yaml = ["PyYAML"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1,<4.0"
-content-hash = "1f28b6cea9e95635fbd4bf29ae2832d9b8ee2d1569d6c9465cb93acc40ec9eb7"
+content-hash = "92b5fa29548fbd59ae9ac9e82af228a895da8a0639980f7e6f68b5b78db1d7d8"
 
 [metadata.files]
 anyio = [
@@ -1871,6 +1884,10 @@ flake8 = [
 ghp-import = [
     {file = "ghp-import-2.1.0.tar.gz", hash = "sha256:9c535c4c61193c2df8871222567d7fd7e5014d835f97dc7b7439069e2413d343"},
     {file = "ghp_import-2.1.0-py3-none-any.whl", hash = "sha256:8337dd7b50877f163d4c0289bc1f1c7f127550241988d568c1db512c4324a619"},
+]
+gitchangelog = [
+    {file = "gitchangelog-3.0.4-py2.py3-none-any.whl", hash = "sha256:45f8b8e64cece0d9bb03a35ecd8ee62c1c7157f8dac0ef3cb68381bfcc1bde29"},
+    {file = "gitchangelog-3.0.4.tar.gz", hash = "sha256:3d8d6a730450fbd5b0a9bc58d0dd3e269c967d7eb4fece0c5cff4372a3f77421"},
 ]
 greenlet = [
     {file = "greenlet-1.1.2-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:58df5c2a0e293bf665a51f8a100d3e9956febfbf1d9aaf8c0677cf70218910c6"},

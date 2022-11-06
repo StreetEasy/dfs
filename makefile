@@ -12,4 +12,4 @@ docs:
 	poetry run mkdocs build
 
 changelog:
-	poetry run auto-changelog
+	poetry run gitchangelog

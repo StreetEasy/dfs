@@ -28,13 +28,6 @@ def validate_df(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
     ### Alternative
     Equivalent to using `dfschema.DfSchema` class (which is recommended):
 
-    ```python
-    from dfschema import DfSchema
-
-    Schema = DfSchema.from_file(path)
-    Schema.validate_df(df=df, summary=True)
-    ```
-
     Args:
         df (pd.DataFrame): A dataframe to validate
         schema (dict): schema as a dictionary to validate against

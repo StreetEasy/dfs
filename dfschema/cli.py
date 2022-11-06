@@ -42,11 +42,11 @@ def validate(
     file: Path = typer.Argument(..., help="Data file to validate"),
     schema: Path = typer.Argument(..., help="Schema file to validate against"),
     read_kwargs_json: Optional[str] = typer.Option(
-        None, help="Extra read options to be passed to pandas method, as a json ojbec"
+        None, help="Extra read options to be passed to pandas method, as a json objec"
     ),
     summary: bool = typer.Option(
         True,
-        help="Print summary of validation results. If false, will stop at first violation",
+        help="Print summary of validation results. If `no-summary`, will stop at first violation (faster)",
     ),
 ):
     """
