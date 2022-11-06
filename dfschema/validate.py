@@ -4,17 +4,42 @@ from .core import DfSchema
 
 
 def validate_df(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
-    """validate dataframe over the scheme
+    """validate dataframe against the schema
 
-    validate dataframe columns, shape, dtypes
-    over the schema
+    validate dataframe agains the schema as a dictionary. will raise
+    either DataFrameSummaryError (if summary=True) or DataFrameValidationError for specific
+    problem (if summary=False)
 
-    Arguments:
-        df -- dataframe to validate
-        schema -- dict -- dictionary to validate against,
-            check wiki for more detaims NOTE: add wiki documentation!
-        summary -- bool -- if False, raise exception as soon as possible, otherwise wait for all checks to be done
-        validate_schema -- bool -- if True, validate schema vs jsonschema standart, otherwise skip it
+    ### Example
+    ```python
+    import json
+    import pandas as pd
+    import dfschema
+    from pathlib import Path
+
+    path = '/schema.json'
+    schema = json.loads(Path(path).read_text())
+
+    df = pd.DataFrame({'a':[1,2], 'b':[3,4]})
+
+    dfschema.validate_df(df, schema, summary=True)
+    ```
+
+    ### Alternative
+    Equivalent to using `dfschema.DfSchema` class (which is recommended):
+
+    ```python
+    from dfschema import DfSchema
+
+    Schema = DfSchema.from_file(path)
+    Schema.validate_df(df=df, summary=True)
+    ```
+
+    Args:
+        df (pd.DataFrame): A dataframe to validate
+        schema (dict): schema as a dictionary to validate against
+        summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
+
     """
 
     Schema = DfSchema.from_dict(schema)

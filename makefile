@@ -3,8 +3,13 @@ tests:
 	poetry run python -m pytest
 
 jshema:
-	poetry run python scripts/generate_jsonschema.py 
+	poetry run python scripts/generate_jsonschema.py
+
+serve_docs:
+	poetry run mkdocs serve
 
 docs:
-	poetry run jsonschema2md jsonschemas/schema.json docs/docs.md
+	poetry run mkdocs build
 
+changelog:
+	poetry run auto-changelog
