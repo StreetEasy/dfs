@@ -19,4 +19,5 @@ nav:
   - Command Line Interface: cli.md
   - tutorials.md
   - benchmarks.md
-  - Roadmap and Changelog: rm_and_changelog.md
+  - Changelog: changelog.md
+  - Roadmap: roadmap.md
