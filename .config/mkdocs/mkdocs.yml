@@ -2,6 +2,9 @@ site_name: DfSchema Documentation
 
 theme:
   name: "material"
+  palette:
+    primary: yellow
+    accent: deep orange
 
 plugins:
   - mkdocstrings
