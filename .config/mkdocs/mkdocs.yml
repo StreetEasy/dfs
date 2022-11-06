@@ -9,6 +9,8 @@ theme:
 plugins:
   - mkdocstrings
 
+docs_dir: "../../docs"
+
 nav:
   - Quickstart: index.md
   - new_style.md
