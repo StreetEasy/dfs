@@ -1,6 +1,6 @@
-# DFS (aka Dataframe_Schema)
+# DFSchema
 
-**DFS** is a lightweight validator for `pandas.DataFrame`. You can think of it as a `jsonschema` for DataFrames.
+Lightweight validator for `pandas.DataFrame`. You can think of it as a `jsonschema` for DataFrames.
 
 Key features:
 
