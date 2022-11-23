@@ -12,7 +12,7 @@ dfschema = "dfschema.cli:app"
 python = ">=3.7.1,<4.0"
 pandas = "^1.2.4"
 sqlalchemy = {version = "1.*", optional = true}
-pandera = {version = "^0.6", optional = true}
+pandera = {version = ">=0.6,<0.14", optional = true}
 pydantic = "^1.9.1"
 typer = {version = "^0.6.1", optional = true}
 PyYAML = {version = "^6.0", optional = true}

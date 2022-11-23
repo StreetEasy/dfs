@@ -1019,24 +1019,33 @@ test = ["hypothesis (>=3.58)", "pytest (>=6.0)", "pytest-xdist"]
 
 [[package]]
 name = "pandera"
-version = "0.6.5"
-description = "A light-weight and flexible validation package for pandas data structures."
+version = "0.13.4"
+description = "A light-weight and flexible data validation and testing tool for statistical data objects."
 category = "main"
 optional = true
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
-numpy = ">=1.9.0"
+numpy = ">=1.19.0"
 packaging = ">=20.0"
-pandas = ">=0.25.3"
+pandas = ">=1.2.0"
+pydantic = "*"
 typing-extensions = {version = ">=3.7.4.3", markers = "python_version < \"3.8\""}
 typing-inspect = ">=0.6.0"
 wrapt = "*"
 
 [package.extras]
-all = ["black", "hypothesis (>=5.41.1)", "pyyaml (>=5.1)", "scipy"]
+all = ["black", "dask", "fastapi", "frictionless", "geopandas", "hypothesis (>=5.41.1)", "modin", "pandas-stubs (<=1.4.3.220807)", "pyspark (>=3.2.0)", "pyyaml (>=5.1)", "ray (<=1.7.0)", "scipy", "shapely"]
+dask = ["dask"]
+fastapi = ["fastapi"]
+geopandas = ["geopandas", "shapely"]
 hypotheses = ["scipy"]
-io = ["black", "pyyaml (>=5.1)"]
+io = ["black", "frictionless", "pyyaml (>=5.1)"]
+modin = ["dask", "modin", "ray (<=1.7.0)"]
+modin-dask = ["dask", "modin"]
+modin-ray = ["modin", "ray (<=1.7.0)"]
+mypy = ["pandas-stubs (<=1.4.3.220807)"]
+pyspark = ["pyspark (>=3.2.0)"]
 strategies = ["hypothesis (>=5.41.1)"]
 
 [[package]]
@@ -1693,7 +1702,7 @@ yaml = ["PyYAML"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.1,<4.0"
-content-hash = "92b5fa29548fbd59ae9ac9e82af228a895da8a0639980f7e6f68b5b78db1d7d8"
+content-hash = "427082b21accafc8b8c03ea4a020211c350d85f4141e416bc0c00b0196c0f14b"
 
 [metadata.files]
 anyio = [
@@ -2320,8 +2329,8 @@ pandas = [
     {file = "pandas-1.3.5.tar.gz", hash = "sha256:1e4285f5de1012de20ca46b188ccf33521bff61ba5c5ebd78b4fb28e5416a9f1"},
 ]
 pandera = [
-    {file = "pandera-0.6.5-py3-none-any.whl", hash = "sha256:01c0a2c5e75e978ab58289330c43262e502c2d15563ea69627e5d995f0126639"},
-    {file = "pandera-0.6.5.tar.gz", hash = "sha256:998bdc88f737877f7b566a1c8a0a7fa70dedf33b6fcf127bf4dfd21eb038270d"},
+    {file = "pandera-0.13.4-py3-none-any.whl", hash = "sha256:9e91687861406284270add1d467f204630377892e7a4b45809bb7546f0013153"},
+    {file = "pandera-0.13.4.tar.gz", hash = "sha256:6ef2b7ee00d3439ac815d4347984421a08502da1020cec60c06dd0135e8aee2f"},
 ]
 pandocfilters = [
     {file = "pandocfilters-1.5.0-py2.py3-none-any.whl", hash = "sha256:33aae3f25fd1a026079f5d27bdd52496f0e0803b3469282162bafdcbdf6ef14f"},
