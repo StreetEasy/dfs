@@ -63,7 +63,7 @@ def validate(
     Schema = DfSchema.from_file(schema)
 
     try:
-        Schema.validate(df, summary=summary)
+        Schema.validate_df(df, summary=summary)
     except Exception as e:
         typer.echo(f"File violates schema: {e}", err=True)
     else:

@@ -36,4 +36,4 @@ def validate(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
     """
 
     Schema = DfSchema.from_dict(schema)
-    Schema.validate(df=df, summary=summary)
+    Schema.validate_df(df=df, summary=summary)
