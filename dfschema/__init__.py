@@ -1,4 +1,4 @@
-from .validate import validate_df
+from .validate import validate
 from .utils import generate_scheme, schema_to_dtypes
 from .core.core import DfSchema
 from .core.exceptions import (
@@ -9,7 +9,7 @@ from .core.exceptions import (
 
 
 __all__ = [
-    "validate_df",
+    "validate",
     "DfSchema",
     "generate_scheme",
     "schema_to_dtypes",
