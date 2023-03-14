@@ -26,9 +26,9 @@ good_schemas = [
 
 @pytest.mark.parametrize("schema", good_schemas)
 def test_validate_df(df1, schema):
-    from dfschema import validate_df
+    from dfschema import validate
 
-    validate_df(df1, schema)
+    validate(df1, schema)
 
 
 wrong_schemas = [
@@ -48,7 +48,7 @@ wrong_schemas = [
 @pytest.mark.parametrize("schema", wrong_schemas)
 def test_validate_df_raises(df1, summary, schema):
     from dfschema import (
-        validate_df,
+        validate,
         DataFrameValidationError,
         DataFrameSummaryError,
     )
@@ -56,7 +56,7 @@ def test_validate_df_raises(df1, summary, schema):
     e = [DataFrameValidationError, DataFrameSummaryError][summary]
 
     with pytest.raises(e):
-        validate_df(df1, schema, summary=summary)
+        validate(df1, schema, summary=summary)
 
 
 good_schemas2 = [
@@ -86,16 +86,16 @@ wrong_schemas2 = [
 
 @pytest.mark.parametrize("schema", good_schemas2)
 def test_validate_df2(df2, schema):
-    from dfschema import validate_df
+    from dfschema import validate
 
-    validate_df(df2, schema)
+    validate(df2, schema)
 
 
 @pytest.mark.parametrize("summary", [False, True])
 @pytest.mark.parametrize("schema", wrong_schemas2)
 def test_validate_df2_raises(df2, summary, schema):
     from dfschema import (
-        validate_df,
+        validate,
         DataFrameValidationError,
         DataFrameSummaryError,
     )
@@ -103,7 +103,7 @@ def test_validate_df2_raises(df2, summary, schema):
     e = [DataFrameValidationError, DataFrameSummaryError][summary]
 
     with pytest.raises(e):
-        validate_df(df2, schema, summary=summary)
+        validate(df2, schema, summary=summary)
 
 
 good_schemas3 = [
@@ -128,14 +128,14 @@ wrong_schemas3 = [
 
 @pytest.mark.parametrize("schema", good_schemas3)
 def test_validate_nan_str(df3, schema):
-    from dfschema import validate_df
+    from dfschema import validate
 
-    validate_df(df3, schema)
+    validate(df3, schema)
 
 
 @pytest.mark.parametrize("schema", wrong_schemas3)
 def test_validate_df3_raises(df3, schema):
-    from dfschema import validate_df, DataFrameValidationError
+    from dfschema import validate, DataFrameValidationError
 
     with pytest.raises(DataFrameValidationError):
-        validate_df(df3, schema)
+        validate(df3, schema)

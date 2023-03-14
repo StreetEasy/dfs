@@ -1,4 +1,4 @@
-from .validate import validate_df as validate
+from .validate import validate
 from .utils import generate_scheme, schema_to_dtypes
 from .core.core import DfSchema
 from .core.exceptions import (

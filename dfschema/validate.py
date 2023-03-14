@@ -3,7 +3,7 @@ import pandas as pd
 from .core import DfSchema
 
 
-def validate_df(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
+def validate(df: pd.DataFrame, schema: dict, summary: bool = True) -> None:
     """validate dataframe against the schema
 
     validate dataframe agains the schema as a dictionary. will raise

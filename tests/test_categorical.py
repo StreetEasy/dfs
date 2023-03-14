@@ -6,7 +6,7 @@ import pytest
 
 
 def test_df_oneof():
-    from dfschema import validate_df, DataFrameSummaryError
+    from dfschema import validate, DataFrameSummaryError
 
     df = pd.DataFrame({"x": [1, 2, 3], "y": [0.2, 0.5, 0.99], "z": ["A", "A", "Q"]})
     schema = {
@@ -19,16 +19,16 @@ def test_df_oneof():
         "strict_cols": True,
     }
 
-    validate_df(df, schema)
+    validate(df, schema)
 
     df.loc[1, "z"] = "B"
     with pytest.raises(DataFrameSummaryError):
-        validate_df(df, schema)
+        validate(df, schema)
 
 
 # @given(df=cat_df_include())
 def test_df_include():
-    from dfschema import validate_df, DataFrameSummaryError
+    from dfschema import validate, DataFrameSummaryError
 
     df = pd.DataFrame({"x": [1, 2, 3], "y": [0.2, 0.5, 0.99], "z": ["A", "Q", "Q"]})
 
@@ -41,15 +41,15 @@ def test_df_include():
         "strict_cols": True,
     }
 
-    validate_df(df, schema)
+    validate(df, schema)
 
     schema["columns"]["z"]["include"].append("B")
     with pytest.raises(DataFrameSummaryError):
-        validate_df(df, schema)
+        validate(df, schema)
 
 
 def test_df_unique():
-    from dfschema import validate_df, DataFrameSummaryError
+    from dfschema import validate, DataFrameSummaryError
 
     df = pd.DataFrame({"x": [1, 2, 3], "y": [0.2, 0.5, 0.99], "z": ["A", "B", "C"]})
     schema = {
@@ -61,9 +61,9 @@ def test_df_unique():
         "strict_cols": True,
     }
 
-    validate_df(df, schema)
+    validate(df, schema)
 
     df["z"] = "A"
 
     with pytest.raises(DataFrameSummaryError):
-        validate_df(df, schema)
+        validate(df, schema)
