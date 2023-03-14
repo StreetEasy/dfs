@@ -1,0 +1,9 @@
+{   "strict": true,
+    "columns": {
+        "pid": {"na_limit": 0.1,  "dtype": "number"},
+        "unittype": {"na_limit": 0.1, "dtype": "str"},
+        "bedrooms": {"na_limit": 0.1, "dtype": "number"},
+        "bathrooms": {"na_limit": 0.1, "dtype": "number"},
+        "size": {"na_limit": 0.1, "dtype": "number"}
+    }
+}

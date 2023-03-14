@@ -12,7 +12,7 @@ def test_generate_df1(df1):
         sd = DfSchema.from_df(df1, return_dict=True)
         raise Exception(sd, e)
 
-    S.validate(df1)  # type: ignore
+    S.validate_df(df1)  # type: ignore
 
 
 def test_generate_df4(df4):
@@ -26,4 +26,4 @@ def test_generate_df4(df4):
         sd = DfSchema.from_df(df4, return_dict=True)
         raise Exception(sd, e)
 
-    S.validate(df4)  # type: ignore
+    S.validate_df(df4)  # type: ignore

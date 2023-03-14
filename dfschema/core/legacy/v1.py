@@ -50,6 +50,8 @@ class V1_DfSchema(BaseModel):
     class Config:
         extra = Extra.forbid
         arbitrary_types_allowed = True
+        allow_population_by_field_name = True
+
 
     version: Optional[str] = Field(
         None,
@@ -63,7 +65,7 @@ class V1_DfSchema(BaseModel):
     custom_settings: Optional[dict] = None
 
     strict_cols: Optional[bool] = Field(
-        False, description="if true, won't support additional columns"
+        False, description="if true, won't allow any additional columns", alias="strict"
     )
     shape: Optional[V1_ShapeSchema] = Field(None, description="shape expectations")
     columns: Union[List[str], V1_ColumnsSchema, None] = Field(

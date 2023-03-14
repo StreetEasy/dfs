@@ -1,6 +1,6 @@
 # Changelog
 
-- rename `DfSchema.validate_df` to `DfSchema.validate`
+- rename `DfSchema.validate_df` to `DfSchema.validate` (UNDONE: `validate` is reserved by Pydantic object)
 - updated documentation
 
 v0.0.6:

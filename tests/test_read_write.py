@@ -23,7 +23,7 @@ def test_read_schema_file(path, sample_df):
     from dfschema import DfSchema
 
     schema = DfSchema.from_file(path)
-    schema.validate(sample_df)
+    schema.validate_df(sample_df)
 
 
 @pytest.mark.parametrize("format", ["json", "yml"])

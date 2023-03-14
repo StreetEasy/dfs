@@ -22,7 +22,7 @@ class ShapeSchema(BaseModel):
         extra = Extra.forbid
 
     @exception_collector
-    def validate(self, df: pd.DataFrame) -> None:
+    def validate_df(self, df: pd.DataFrame) -> None:
         """validate shape of the dataframe"""
         for i, el in enumerate(("rows", "cols")):
             exact = getattr(self, el)
