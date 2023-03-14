@@ -52,7 +52,6 @@ class V1_DfSchema(BaseModel):
         arbitrary_types_allowed = True
         allow_population_by_field_name = True
 
-
     version: Optional[str] = Field(
         None,
         description="version of the schema",
