@@ -103,7 +103,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             df, schema_col_names, additionalColumns=self.additionalColumns, root=self
         )
 
-    def validate_df(self, df: pd.DataFrame, summary: bool = True) -> None:
+    def validate(self, df: pd.DataFrame, summary: bool = True) -> None:
         """validate Dataframe aganist this schema
 
         validate dataframe agains the schema as a dictionary. will raise
@@ -136,7 +136,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             )
 
         if self.shape:
-            self.shape.validate_df(df, root=self)
+            self.shape.validate(df, root=self)
 
         if self.columns:
             self.validate_column_presence(df)
@@ -146,7 +146,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
 
         if self.subsets:
             for subset in self.subsets:
-                subset.validate_df(df=df, root=self)
+                subset.validate(df=df, root=self)
 
         if len(self._exception_pool) > 0:
             error = self._summary_error()
@@ -172,7 +172,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             None
         """
         df = pd.read_sql(sql, con, **(read_sql_kwargs or {}))
-        self.validate_df(df, summary=summary)
+        self.validate(df, summary=summary)
 
     @classmethod
     def from_file(cls, path: Union[str, Path]) -> "DfSchema":
@@ -379,7 +379,7 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
             root=self,
         )
 
-    def validate_df(self, df: pd.DataFrame, root: DfSchema) -> None:
+    def validate(self, df: pd.DataFrame, root: DfSchema) -> None:
         """validate Dataframe aganist this schema
 
         validate dataframe agains the schema as a dictionary. will raise
@@ -397,7 +397,7 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
         filtered_df = self._filter(df, self.predicate)
 
         if self.shape:
-            self.shape.validate_df(filtered_df, root=self)
+            self.shape.validate(filtered_df, root=self)
 
         if self.columns:
             self.validate_column_presence_and_order(filtered_df)

@@ -28,7 +28,7 @@ def test_subset_dict(df_subset):
     }
 
     S = DfSchema.from_dict(D)
-    S.validate_df(df_subset)
+    S.validate(df_subset)
 
 
 def test_subset_query(df_subset):
@@ -52,7 +52,7 @@ def test_subset_query(df_subset):
     }
 
     S = DfSchema.from_dict(D)
-    S.validate_df(df_subset)
+    S.validate(df_subset)
 
 
 def test_subset_query_raises(df_subset):
@@ -67,4 +67,4 @@ def test_subset_query_raises(df_subset):
     S = DfSchema.from_dict(D)
 
     with pytest.raises(DataFrameSummaryError):
-        S.validate_df(df_subset)
+        S.validate(df_subset)

@@ -26,7 +26,7 @@ def test_string_matching(str_df):
     }
 
     S = DfSchema.from_dict(D)
-    S.validate_df(str_df)
+    S.validate(str_df)
 
 
 def test_string_matching_raises(str_df):
@@ -43,4 +43,4 @@ def test_string_matching_raises(str_df):
 
     S = DfSchema.from_dict(D)
     with pytest.raises(DataFrameSummaryError):
-        S.validate_df(str_df)
+        S.validate(str_df)

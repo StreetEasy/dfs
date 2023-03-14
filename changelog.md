@@ -1,11 +1,15 @@
 # Changelog
 
+- rename `DfSchema.validate_df` to `DfSchema.validate`
+- updated documentation
+
 v0.0.6:
     - `DfSchema.to_file`, `DfSchema.from_file` proper testing
     - CLI command help texts
     - added pre-commit install to the repo
     - Some benchmarking
     - renamed `dfs.validate_df` to `dfs.validate`
+    
 v0.0.5: fix column dtype generation/validation bug
 
 ## Pre-Publication
