@@ -1,0 +1,12 @@
+{   
+    "version": "2021-04-25",
+    "strict": true,
+    "columns": {
+        "PROPERTY_ID":{"dtype":"int", "na_limit":1, "min_value":1},
+        "MODEL":{"dtype":"str", "na_limit":1, "oneof":["main", "certainty_lo", "certainty_med", "certainty_hi"]},
+        "VERSION":{"dtype":"float", "na_limit":1, "min_value": 3.18},
+        "TRAINED_AT":{"dtype":"datetime", "na_limit":1},
+        "VALUE":{"dtype":"int", "na_limit":1, "min_value":750},
+        "INFERRED_AT":{"dtype":"datetime", "na_limit":1}
+    }
+}

@@ -26,16 +26,17 @@ class V1_ShapeSchema(BaseModel):
 class V1_ColObj(BaseModel):
     class Config:
         extra = Extra.forbid
+        allow_population_by_field_name = True
 
     dtype: Optional[DtypeLiteral]  # type: ignore
 
-    min_value: Optional[float]
-    max_value: Optional[float]
+    min_value: Optional[float] = Field(None, alias='min')
+    max_value: Optional[float] = Field(None, alias='max')
 
     na_limit: Union[None, bool, float] = Field(None, gt=0, le=1.0)
 
     include: Optional[List[str]] = None
-    oneof: Optional[List[str]] = None
+    oneof: Optional[List[str]] = Field(None, alias="one_of")
     unique: Optional[bool] = None
 
 
@@ -44,6 +45,8 @@ class V1_ColumnsSchema(BaseModel):
 
     class Config:
         extra = Extra.forbid
+    
+    
 
 
 class V1_DfSchema(BaseModel):
@@ -77,12 +80,16 @@ class V1_DfSchema(BaseModel):
 
         if "protocol_version" in schema:
             schema.pop("protocol_version")
+        
+        if "version" in schema:
+            version = schema.pop("version")
+        else:
+            version = None
 
-        schema["metadata"] = {"protocol_version": 2.0}
+        schema["metadata"] = {"protocol_version": 2.0, "version":version}
         schema["additionalColumns"] = schema.pop("strict_cols", False)
 
         if "columns" in schema:
-
             if isinstance(schema["columns"], dict):
                 schema["columns"] = [
                     dict(name=k, **v) for k, v in schema["columns"].items()
@@ -104,6 +111,11 @@ class V1_DfSchema(BaseModel):
                         col["value_limits"] = value_limits
 
                 # categorical
+                if ("oneof" in col) and ("include" in col) and col.get("oneof") == col.get("include"):
+                    set_ = col.pop("oneof")
+                    col.pop("include")
+                    col["exact_set"] = set_
+                
                 for k in ("oneof", "include", "exact_set"):
                     if col.get(k) is not None:
                         categorical = col.get("categorical", dict())

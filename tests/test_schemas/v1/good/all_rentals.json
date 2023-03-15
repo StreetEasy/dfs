@@ -1,0 +1,30 @@
+{
+    "version": "2021-06-03",
+    "strict": false,
+    "columns": {
+        "id": {"dtype":"int", "na_limit":0, "min_value":1},
+        "building_id": {"dtype":"int", "na_limit":0, "min_value":1},
+        "property_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "created_at": {"dtype":"datetime", "na_limit":0},
+        "area_id": {"dtype":"int", "na_limit":0},
+        "addr_lat": {"dtype":"float"},
+        "addr_lon": {"dtype":"float"},
+        "price": {"dtype":"int", "na_limit":0, "min_value":0},
+        "bedrooms": {"dtype":"int", "na_limit":0, "min_value":0},
+        "bathrooms": {"dtype":"int", "na_limit":0, "min_value":0},
+        "half_baths": {"dtype":"int", "na_limit":0, "min_value":0},
+        "no_fee": {"dtype":"int", "na_limit":0, "min_value":0},
+        "unittype": {"dtype":"str"},
+        "is_streeteasy_plus": {"dtype":"int", "na_limit":0, "min_value":0},
+        "image_uri": {"dtype":"str"},
+        "days_on_market": {"dtype":"int", "na_limit":0},
+        "listing_age": {"dtype":"int", "na_limit":0},
+        "amenities": {"dtype":"str"},
+        "pets": {"dtype":"int"},
+        "elevator": {"dtype":"int"},
+        "doorman": {"dtype":"int"},
+        "laundry": {"dtype":"int"},
+        "washer_dryer": {"dtype":"int"},
+        "outdoor_space": {"dtype":"int"}
+    }
+}

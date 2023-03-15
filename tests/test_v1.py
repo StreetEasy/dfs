@@ -11,5 +11,5 @@ def test_validate_df_v1_invalid(bad_schema_v1):
 
 def test_schema_objects(good_schema_v1: dict):
     from dfschema.core.core import DfSchema
-
+    
     DfSchema.from_dict(good_schema_v1["schema"])

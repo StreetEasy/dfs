@@ -1,5 +1,10 @@
 # Changelog
 
+v0.0.8:
+- vast array of fixes to legacy v1 schemas
+
+
+v0.0.7:
 - rename `DfSchema.validate_df` to `DfSchema.validate` (UNDONE: `validate` is reserved by Pydantic object)
 - updated documentation
 

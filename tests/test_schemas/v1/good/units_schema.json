@@ -1,0 +1,18 @@
+{
+    "strict_cols": true,
+    "columns": {
+        "id": { "dtype": "int"},
+        "updated_at": { "dtype": "datetime"},
+        "processed_unit": { "dtype": "str"},
+        "guessed_floor": { "dtype": "number", "min_value":1, "max_value":99},
+        "multiunit": { "dtype": "bool"},
+        "penthouse": { "dtype": "bool"},
+        "garden": { "dtype": "bool"},
+        "bad": { "dtype": "bool"},
+        "whole_bld": { "dtype": "bool"},
+        "line": {"na_limit": 1, "dtype": "str"},
+        "unit_len": { "dtype": "number"},
+        "non_numeric_len": { "dtype": "number"}
+
+    }
+}

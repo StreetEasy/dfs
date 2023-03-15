@@ -1,0 +1,43 @@
+{
+    "version": "2021-04-25",
+    "strict": true,
+    "columns": {
+        "PROPERTY_ID": {
+            "dtype": "int",
+            "na_limit": 1,
+            "min_value": 1
+        },
+        "MODEL": {
+            "dtype": "str",
+            "na_limit": 1,
+            "oneof": [
+                "sestimate_certainty_low",
+                "sestimate_certainty_med",
+                "headline_value",
+                "sestimate_main",
+                "comps_mean_price",
+                "comps_median_price",
+                "repeat_sales_value",
+                "sestimate_certainty_high",
+                "zestimate_off_market"
+            ]
+        },
+        "VERSION": {
+            "dtype": "str",
+            "na_limit": 1
+        },
+        "TRAINED_AT": {
+            "dtype": "datetime",
+            "na_limit": 1
+        },
+        "VALUE": {
+            "dtype": "int",
+            "na_limit": 0.9,
+            "min_value": 5000
+        },
+        "INFERRED_AT": {
+            "dtype": "datetime",
+            "na_limit": 1
+        }
+    }
+}

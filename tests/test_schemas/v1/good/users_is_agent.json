@@ -1,0 +1,8 @@
+{
+    "version": "2021-06-03",
+    "strict": false,
+    "columns": {
+        "id": {"dtype":"int", "na_limit":0, "min_value":1},
+        "is_agent": {"dtype":"int", "na_limit":0, "min_value":0}
+    }
+}

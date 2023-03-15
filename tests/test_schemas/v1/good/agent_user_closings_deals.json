@@ -1,0 +1,18 @@
+{
+    "version": "2021-10-27",
+    "strict": false,
+    "columns": {
+        "contact_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "user_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "sale_id": {"dtype":"float"},
+        "building_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "area_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "boro": {"dtype":"int", "na_limit":0, "min_value":0},
+        "building_type": {"dtype":"str"},
+        "relation": {"dtype":"str"},
+        "price": {"dtype":"int", "na_limit":0, "min_value":0},
+        "created_at": {"dtype":"datetime", "na_limit":0},
+        "lat": {"dtype":"float"},
+        "lon": {"dtype":"float"}
+    }
+}

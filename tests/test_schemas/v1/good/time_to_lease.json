@@ -1,0 +1,9 @@
+{
+    "version": "2021-04-25",
+    "strict": true,
+    "columns": {
+        "ADDR_ZIP": {"dtype":"int", "na_limit":1},
+        "BEDROOMS": {"dtype":"int", "na_limit":1},
+        "TIME_TO_LEASE": {"dtype":"number", "na_limit":1}
+    }
+}
