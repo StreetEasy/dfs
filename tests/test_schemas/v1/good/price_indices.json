@@ -1,0 +1,11 @@
+{
+    "version": "2021-04-25",
+    "strict": true,
+    "columns": {
+        "ID": {"dtype":"str", "na_limit":1},
+        "AREA_ID": {"dtype":"int", "na_limit":1, "min_value":1},
+        "BEDROOMS": {"dtype":"int", "na_limit":0.5},
+        "UNIT_TYPE": {"dtype":"str", "na_limit":0.5},
+        "PRICE_INDEX": {"dtype":"object", "na_limit":0.5}
+    }
+}

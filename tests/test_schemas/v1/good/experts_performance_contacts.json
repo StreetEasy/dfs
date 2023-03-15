@@ -1,0 +1,17 @@
+{
+    "version": "2021-11-30",
+    "strict": false,
+    "columns": {
+        "current_contact_id": {
+            "dtype": "int",
+            "na_limit": 0,
+            "min_value": 1
+        },
+        "name": {
+            "dtype": "str"
+        },
+        "contact_id": {
+            "dtype": "int"
+        }
+    }
+}

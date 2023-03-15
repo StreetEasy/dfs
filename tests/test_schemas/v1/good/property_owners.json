@@ -1,0 +1,8 @@
+{
+    "version": "2021-04-25",
+    "strict": true,
+    "columns": {
+        "PROPERTY_ID": {"dtype":"int", "na_limit":1, "min_value":1},
+        "NAMES": {"dtype":"str", "na_limit":true}
+    }
+}

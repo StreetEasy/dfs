@@ -1,0 +1,22 @@
+{
+    "version": "2021-10-27",
+    "strict": false,
+    "columns": {
+        "contact_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "user_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "sale_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "building_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "area_id": {"dtype":"int", "na_limit":0, "min_value":0},
+        "boro": {"dtype":"int", "na_limit":0, "min_value":0},
+        "building_type": {"dtype":"str"},        
+        "price": {"dtype":"int", "na_limit":0, "min_value":0},
+        "created_at": {"dtype":"datetime", "na_limit":0},
+        "status": {"dtype":"int", "na_limit":0, "min_value":-2},
+        "lat": {"dtype":"float"},
+        "lon": {"dtype":"float"},
+        "bedrooms": {"dtype":"int", "na_limit":0, "min_value":0},
+        "bathrooms": {"dtype":"float", "na_limit":0, "min_value":0},
+        "half_baths": {"dtype":"float", "na_limit":0, "min_value":0}, 
+        "property_type": {"dtype":"str"}
+    }
+}

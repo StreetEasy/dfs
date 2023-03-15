@@ -1,0 +1,9 @@
+{
+    "strict_cols": true,
+    "columns": {
+        "id": { "dtype": "int"},
+        "updated_at": { "dtype": "datetime"},
+        "size_sqft": { "dtype": "number", "min_value":50, "max_value":50000, "na_limit":0},
+        "source": { "dtype": "str", "oneof":["nhood_full", "smarket_full", "nhood_no_unit", "floorplans"]}
+    }
+}

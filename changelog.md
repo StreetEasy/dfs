@@ -1,5 +1,20 @@
 # Changelog
 
+v0.0.8:
+Legacy Schema Aliases (support for legacy schemas):
+- `min_value` now also supports `min` alias
+- `max_value` now also supports `max` alias
+- `oneof` now also supports `one_of` alias
+- `version` is now correctly moved to `metadata` from root on migration
+- If column schema has both `oneof` and `includes` and they are identical, will replace with `exact_set`
+
+Testing:
+- conftest code improved to showcase bad json on Exception
+- multiple v1 schemas were added for testing
+- pre-commit setup was updated
+
+
+v0.0.7:
 - rename `DfSchema.validate_df` to `DfSchema.validate` (UNDONE: `validate` is reserved by Pydantic object)
 - updated documentation
 

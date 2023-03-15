@@ -50,10 +50,14 @@ def _get_schemas_v1(name):
 
     schema_files = list((test_dir / name).glob("*.json"))
     assert len(schema_files) > 0, f"No schema files found in {test_dir / name}"
-    return (
-        {"name": file.stem, "schema": json.loads(file.read_text())}
-        for file in schema_files
-    )
+    schemas = []
+
+    for file in schema_files:
+        try:
+            schemas.append({"name": file.stem, "schema": json.loads(file.read_text())})
+        except Exception as e:
+            raise Exception(file, e)
+    return tuple(schemas)
 
 
 def _get_schemas_v2(name):

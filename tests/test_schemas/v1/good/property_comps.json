@@ -1,0 +1,10 @@
+{
+    "version": "2021-04-25",
+    "strict": true,
+    "columns": {
+        "PROPERTY_ID": {"dtype":"int", "na_limit":1, "min_value":1},
+        "COMPS_TYPE": {"dtype":"str", "na_limit":1, "oneof":["sales" ]},
+        "COMPS_STATUS": {"dtype":"str", "na_limit":1, "oneof":["closed" ]},
+        "COMPS_ARRAY": {"dtype":"str", "na_limit":1}
+    }
+}

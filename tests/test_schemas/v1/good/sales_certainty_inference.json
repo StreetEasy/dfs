@@ -1,0 +1,12 @@
+{
+    "strict_cols": true,
+    "version": "2021-04-20",
+    "columns": {
+        "property_id": {"na_limit": 1, "dtype": "int"},
+        "version": {"na_limit": 1, "dtype": "float"},
+        "model": {"na_limit": 1, "dtype": "str", "oneof":["certainty_lo", "certainty_hi", "certainty_med"], "include":["certainty_lo", "certainty_hi", "certainty_med"]},
+        "trained_at": {"na_limit": 1, "dtype": "date"},
+        "inferred_at": {"na_limit": 1, "dtype": "datetime"},
+        "value": {"na_limit": 1, "dtype": "number", "min_value": 10000, "max_value": 500000000}
+    }
+}

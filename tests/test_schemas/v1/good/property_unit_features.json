@@ -1,0 +1,21 @@
+{
+    "version": "2021-12-15",
+    "strict": true,
+    "columns": {
+        "ID": {"dtype":"int", "na_limit":1, "min_value":1},
+        "UPDATED_AT": {"dtype":"datetime", "na_limit":1},
+        "PROCESSED_UNIT": {"dtype":"str", "na_limit":1},
+        "GUESSED_FLOOR": {"dtype":"float", "na_limit":1},
+        "GARDEN": {"dtype":"bool", "na_limit":1},
+        "MULTIUNIT": {"dtype":"bool", "na_limit":1},
+        "PENTHOUSE": {"dtype":"bool", "na_limit":1},
+        "WHOLE_BLD": {"dtype":"bool", "na_limit":1},
+        "UNIT_LEN": {"dtype":"int", "na_limit":1},
+        "NON_NUMERIC_LEN": {"dtype":"int", "na_limit":1},
+        "LINE": {"dtype":"str", "na_limit":true},
+        "BAD": {"dtype":"bool", "na_limit":1},
+        "SIZE_STATUS": {"dtype":"str", "na_limit":true, "oneof": ["listing", "property", "nhood_full","smarket_full", "nhood_no_unit"]},
+        "SIZE_SQFT": {"dtype":"number", "na_limit":true, "min_value":100},
+        "VIEW":  {"dtype":"bool", "na_limit":1}
+    }
+}

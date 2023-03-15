@@ -1,0 +1,15 @@
+{
+    "version": "2021-07-13",
+    "strict": false,
+    "columns": {
+        "lead_id": {"dtype":"int", "na_limit":0, "min_value":1},
+        "connection_id": {"dtype":"int", "na_limit":0, "min_value":1},
+        "status": {"dtype":"int", "na_limit":0, "min_value":0},
+        "user_id": {"dtype":"float", "na_limit":0},
+        "contact_id": {"dtype":"int", "na_limit":0},
+        "subject": {"dtype":"str"},
+        "body": {"dtype":"str"},
+        "created_at": {"dtype":"datetime", "na_limit":0},
+        "addr_unit": {"dtype":"str"}
+    }
+}
