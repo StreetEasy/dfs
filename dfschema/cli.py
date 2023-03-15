@@ -20,7 +20,6 @@ app = typer.Typer()
 
 
 def _infer_read_df(path: Path, **kwargs) -> pd.DataFrame:
-
     methods = {
         ".csv": pd.read_csv,
         ".xlsx": pd.read_excel,
