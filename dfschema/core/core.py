@@ -166,7 +166,7 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
         Args:
             sql (str): SQL statement (query) to run
             con (sqlalchemy.connection): connection to the database
-            read_sql_kwargs (dict): Optional set of params to pass to `pd.read_sql_kwargs`
+            read_sql_kwargs (dict): Optional set of params to pass to `pd.read_sql` kwargs
             summary (bool): if `False`, raise exception on first violation (faster), otherwise will collect all violations and raise summary exception (slower)
         Returns:
             None

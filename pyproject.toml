@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dfschema"
-version = "0.0.8"
+version = "0.0.9"
 description = "lightweight pandas.DataFrame schema"
 authors = ["Philipp <philippk@zillowgroup.com>"]
 readme = "README.md"

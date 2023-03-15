@@ -1,12 +1,12 @@
 # DFS (aka Dataframe_Schema)
 
-**DFS** is a lightweight validator for `pandas.DataFrame`. You can think of it as a `jsonschema` for dataframe. 
+**DFS** is a lightweight validator for `pandas.DataFrame`. You can think of it as a `jsonschema` for dataframe.
 
 Key features:
 1. **Lightweight**: only dependent on `pandas`  and `pydantic` (which depends only on `typing_extensions`)
 2. **Explicit**: inspired by `JsonSchema`, all schemas are stored as json (or yaml) files and can be generated or changed on the fly.
-3. **Simple**: Easy to use, no need to change your workflow and dive into the implementation details. 
-4. **Comprehensive**: Summarizes all errors in a single summary exception, checks for distributions, works on subsets of the dataframe 
+3. **Simple**: Easy to use, no need to change your workflow and dive into the implementation details.
+4. **Comprehensive**: Summarizes all errors in a single summary exception, checks for distributions, works on subsets of the dataframe
 5. **Rapid**: base schemas can be generated from given dataframe or sql query (using `pd.read_sql`).
 6. **Handy**: Supports command line interface (with `[cli]` extra).
 7. **Extendable**: Core idea is to validate *dataframes* of any type. While now supports only pandas, we'll add abstractions to run same checks on different types of dataframes (CuDF, Dask, SparkDF, etc )
@@ -40,17 +40,27 @@ dfs.validate(df, schema_raise) # will Raise DataFrameSchemaError
 ```
 Alternatively (v2 optional), you can use the root class, `DfSchema`:
 ```python
-dfs.DfSchema.from_dict(schema_pass).validate(df)  # won't raise any issues
-dfs.DfSchema.from_dict(schema_raise).validate(df)  # will Raise DataFrameSchemaError
+dfs.DfSchema.from_dict(schema_pass).validate_df(df)  # won't raise any issues
+dfs.DfSchema.from_dict(schema_raise).validate_df(df)  # will Raise DataFrameSchemaError
 ```
 
-### 2. Generate Schema
+### 2. Validate SQL
+Package use pandas' sql functionality under the hood. So we can pull table samples or execute arbitrary sql and check the results:
+```python
+dfs.DfSchema.from_dict(schema_raise).validate_sql(query, con, read_sql_kwargs)
+
+## Equivalent of:
+df = pd.read_sql(sql, con, **(read_sql_kwargs or {}))
+self.validate_df(df)
+```
+
+### 3. Generate Schema
 
 ```python
 dfs.DfSchema.from_df(df)
 ```
 ### 3. Read and Write Schemas
-  
+
 ```python
 schema = dfs.DfSchema.from_file('schema.json')
 schema.to_file("schema.yml")
@@ -91,8 +101,13 @@ WIP
 
 ## Roadmap
 - [ ] Add tutorial Notebook
-- [ ] Support tableschema
-- [ ] Support Modin models
-- [ ] Support SQLAlchemy ORM models
-- [ ] Built-in Airflow Operator?
+- [ ] Support Mutlple Engines
+  - [ ] snowflake
+  - [ ] dask
+  - [ ] ray?
+- [ ] Support other formats
+  - [ ] Support tableschema
+  - [ ] Support Modin models
+  - [ ] Support SQLAlchemy ORM models
+
 - [ ] Interactive CLI/jupyter for schema generation
