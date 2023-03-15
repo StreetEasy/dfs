@@ -51,7 +51,7 @@ def _get_schemas_v1(name):
     schema_files = list((test_dir / name).glob("*.json"))
     assert len(schema_files) > 0, f"No schema files found in {test_dir / name}"
     schemas = []
-    
+
     for file in schema_files:
         try:
             schemas.append({"name": file.stem, "schema": json.loads(file.read_text())})
