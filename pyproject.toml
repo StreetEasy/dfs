@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dfschema"
-version = "0.0.8"
+version = "0.0.9"
 description = "lightweight pandas.DataFrame schema"
 authors = ["Philipp <philippk@zillowgroup.com>"]
 readme = "README.md"
@@ -13,7 +13,7 @@ python = ">=3.7.1,<4.0"
 pandas = "^1.2.4"
 sqlalchemy = {version = "1.*", optional = true}
 pandera = {version = "^0.6", optional = true}
-pydantic = "^1.9.1"
+pydantic = ">1.10"
 typer = {version = "^0.6.1", optional = true}
 PyYAML = {version = "^6.0", optional = true}
 

@@ -1,6 +1,6 @@
 import sys
 from datetime import date, datetime
-from typing import List, Optional, Set, Union, Tuple  # , Pattern
+from typing import List, Optional, FrozenSet, Union, Tuple  # , Pattern
 from warnings import warn
 
 import pandas as pd
@@ -140,7 +140,7 @@ class Distribution(BaseModel):  # type: ignore
 
 
 class Categorical(BaseModel):  # type: ignore
-    value_set: Optional[Set[str]] = None
+    value_set: Optional[Union[FrozenSet[int], FrozenSet[float], FrozenSet[str], ]] = None
     mode: Optional[Literal["oneof", "exact_set", "include"]] = None
     unique: bool = Field(
         False, description="if true, the column must contain only unique values"

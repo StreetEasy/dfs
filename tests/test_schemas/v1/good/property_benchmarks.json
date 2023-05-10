@@ -1,0 +1,14 @@
+{
+    "version": "2023-01-30",
+    "strict": true,
+    "columns": {
+        "ID": {"dtype":"int", "na_limit":1, "min_value":1},
+        "LAST_SALE_ID": {"dtype":"float", "na_limit":0.9},
+        "BUILDING_ID": {"dtype":"float", "na_limit":0.9},
+        "UNITTYPE": {"dtype":"str", "na_limit":0.9},
+        "NEIGHBORHOOD_ID": {"dtype":"int", "na_limit":1},
+        "SUBMARKET_ID": {"dtype":"number", "na_limit":true},
+        "BOROUGH_ID": {"dtype":"int", "na_limit":1, "oneof":[100,200,300,400,500]},
+        "MEDIAN_NHOOD_PPSF": {"dtype":"number", "na_limit":0.9}
+    }
+}

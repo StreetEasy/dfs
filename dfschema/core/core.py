@@ -13,7 +13,7 @@ from .exceptions import DataFrameSchemaError, DataFrameSummaryError, SubsetSumma
 from .shape import ShapeSchema
 from .legacy import infer_protocol_version, LegacySchemaRegistry
 from .generate import generate_schema_dict_from_df
-
+# from .utils import SchemaEncoder
 # from .base_config import BaseConfig
 
 
@@ -40,12 +40,15 @@ class MetaData(BaseModel):
     )
 
 
-class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # type: ignore
+class DfSchema(BaseModel):  # type: ignore
     """Main class of the package
 
     Represents a Schema to check (validate) dataframe against. Schema
     is flavor-agnostic (does not specify what kind of dataframe it is)
     """
+    class Config:
+        extra=Extra.forbid
+        arbitrary_types_allowed=True
 
     metadata: Optional[MetaData] = Field(
         MetaData(),
@@ -225,11 +228,14 @@ class DfSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):  # 
             path = Path(path)
 
         try:
-            schema_dict = self.dict(exclude_none=True)
+            
             if path.suffix == ".json":
+                schema_json = self.json(exclude_none=True, indent=4)
                 with path.open("w") as f:
-                    json.dump(schema_dict, f, indent=4)
+                    f.write(schema_json)
             elif path.suffix in (".yml", ".yaml"):
+                schema_dict = self.dict(exclude_none=True)
+
                 try:
                     import yaml
 

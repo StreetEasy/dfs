@@ -1,5 +1,10 @@
 # Changelog
 
+v0.0.9:
+
+- Pydantic bumped to `1.10`
+- Bug Fix: Categorical constraints (`exact_set`, `oneof`, `include`) now can keeo `int` and `float` values. That expands to legacy schemas as well.
+
 v0.0.8:
 Legacy Schema Aliases (support for legacy schemas):
 - `min_value` now also supports `min` alias
