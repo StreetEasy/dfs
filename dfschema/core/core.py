@@ -13,6 +13,7 @@ from .exceptions import DataFrameSchemaError, DataFrameSummaryError, SubsetSumma
 from .shape import ShapeSchema
 from .legacy import infer_protocol_version, LegacySchemaRegistry
 from .generate import generate_schema_dict_from_df
+
 # from .utils import SchemaEncoder
 # from .base_config import BaseConfig
 
@@ -46,9 +47,10 @@ class DfSchema(BaseModel):  # type: ignore
     Represents a Schema to check (validate) dataframe against. Schema
     is flavor-agnostic (does not specify what kind of dataframe it is)
     """
+
     class Config:
-        extra=Extra.forbid
-        arbitrary_types_allowed=True
+        extra = Extra.forbid
+        arbitrary_types_allowed = True
 
     metadata: Optional[MetaData] = Field(
         MetaData(),
@@ -228,7 +230,7 @@ class DfSchema(BaseModel):  # type: ignore
             path = Path(path)
 
         try:
-            
+
             if path.suffix == ".json":
                 schema_json = self.json(exclude_none=True, indent=4)
                 with path.open("w") as f:
@@ -252,10 +254,7 @@ class DfSchema(BaseModel):  # type: ignore
             raise DataFrameSchemaError(f"Error wriging schema to file {path}") from e
 
     @classmethod
-    def from_dict(
-        cls,
-        dict_: dict,
-    ) -> "DfSchema":
+    def from_dict(cls, dict_: dict,) -> "DfSchema":
         """create DfSchema from dict.
 
         same as `DfSchema(**dict_)`, but will also migrate old protocol schemas if necessary.
@@ -330,10 +329,7 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
     predicate to select subset.
     - If string, will be interpreted as query for `df.query()`.
     - If dict, keys should be column names, values should be values to exactly match"""
-    predicate: Union[
-        dict,
-        str,
-    ] = Field(..., description=_predicate_description)
+    predicate: Union[dict, str,] = Field(..., description=_predicate_description)
 
     shape: Optional[ShapeSchema] = Field(None, description="shape expectations")
     columns: Optional[List[ColSchema]] = Field([], description="columns expectations")

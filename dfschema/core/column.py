@@ -140,7 +140,7 @@ class Distribution(BaseModel):  # type: ignore
 
 
 class Categorical(BaseModel):  # type: ignore
-    value_set: Optional[Union[FrozenSet[int], FrozenSet[float], FrozenSet[str], ]] = None
+    value_set: Optional[Union[FrozenSet[int], FrozenSet[float], FrozenSet[str],]] = None
     mode: Optional[Literal["oneof", "exact_set", "include"]] = None
     unique: bool = Field(
         False, description="if true, the column must contain only unique values"
