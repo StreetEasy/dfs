@@ -2,7 +2,7 @@ from pydantic import BaseModel, Extra, Field, PositiveInt
 
 # import json
 
-from typing import Optional, Union, Dict, List, Tuple
+from typing import Optional, Union, Dict, List, Tuple, Set
 from ..logger import logger
 from ..dtype import DtypeLiteral
 
@@ -35,8 +35,8 @@ class V1_ColObj(BaseModel):
 
     na_limit: Union[None, bool, float] = Field(None, gt=0, le=1.0)
 
-    include: Optional[List[str]] = None
-    oneof: Optional[List[str]] = Field(None, alias="one_of")
+    include: Optional[Union[Set[int], Set[float], Set[str]]] = None
+    oneof: Optional[Union[Set[int], Set[float], Set[str]]] = Field(None, alias="one_of")
     unique: Optional[bool] = None
 
 
@@ -54,9 +54,7 @@ class V1_DfSchema(BaseModel):
         allow_population_by_field_name = True
 
     version: Optional[str] = Field(
-        None,
-        description="version of the schema",
-        example="2022-06-12",
+        None, description="version of the schema", example="2022-06-12",
     )
 
     protocol_version: float = Field(1.0, description="version of the protocol")
@@ -122,7 +120,10 @@ class V1_DfSchema(BaseModel):
                     if col.get(k) is not None:
                         categorical = col.get("categorical", dict())
                         try:
-                            categorical["value_set"] = set(col.pop(k, {}))
+                            categorical["value_set"] = set(col.pop(k, set()))
+                            logger.debug(
+                                f'Converting Categorical value set for mode={k}: {categorical["value_set"]}'
+                            )
                         except TypeError as e:
                             raise TypeError(k, col, e)
                         categorical["mode"] = k
