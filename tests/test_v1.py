@@ -23,9 +23,10 @@ def test_categorical_dtypes():
     from dfschema.core.core import DfSchema
     import json
     from pathlib import Path
-    path = Path(__name__).parent / 'tests/test_schemas/v1/good/property_benchmarks.json'
+
+    path = Path(__name__).parent / "tests/test_schemas/v1/good/property_benchmarks.json"
     schema = json.loads(path.read_text())
-    
+
     S = DfSchema.from_dict(schema)
-    catcol = [el for el in S.columns if el.name == 'BOROUGH_ID'][0]
+    catcol = [el for el in S.columns if el.name == "BOROUGH_ID"][0]
     assert catcol.categorical.value_set == frozenset((100, 200, 300, 400, 500))
