@@ -1,7 +1,9 @@
 # Changelog
 
-v0.0.9:
+v0.0.10:
+- relaxed Pydantic requirement to `>=1.9`
 
+v0.0.9:
 - Pydantic bumped to `1.10`
 - Bug Fix: Categorical constraints (`exact_set`, `oneof`, `include`) now can keeo `int` and `float` values. That expands to legacy schemas as well.
 
