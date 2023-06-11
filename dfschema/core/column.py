@@ -193,12 +193,14 @@ class ColSchema(BaseModel):
     # accepted for value limitation checks
     _val_accepted_types = {None, "int", "float", "datetime64[ns]"}
 
-    na_limit: Optional[float] = Field(
+    na_pct_below: Optional[float] = Field(
         None,
         ge=0,
         lt=1.0,
-        description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than that fraction of values are empty (Nan)",
+        description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than given perecnt of values are empty (Nan)",
+        alias='na_limit'
     )
+    
     value_limits: Optional[ValueLimits] = Field(
         None, description="Value limits for the column"
     )
@@ -258,8 +260,8 @@ class ColSchema(BaseModel):
     def _validate_na_limit(self, series: pd.Series) -> None:
         na_fraction = series.isnull().mean()
 
-        if na_fraction > self.na_limit:  # type: ignore
-            text = f"Column `{self.name}` has too many NAs: {na_fraction}, should be <= {self.na_limit}"
+        if na_fraction > self.na_pct_below:  # type: ignore
+            text = f"Column `{self.name}` has too many NAs: {na_fraction}, should be <= {self.na_pct_below}"
             raise DataFrameValidationError(text)
 
     @exception_collector
