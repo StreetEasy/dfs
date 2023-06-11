@@ -1,5 +1,12 @@
 # Changelog
 
+v0.0.11:
+- Version in metadata
+  - logs dfschema and pandas version in metadata upon generation
+  - alarms if validated with version earlier or breaking than one generated with
+- Renamed `na_limit` to `na_pct_below` to make it unambiguous (with backward support)
+- Added `optional=True` flag for columns. If true, does not raise exception if column is not present
+
 v0.0.10:
 - relaxed Pydantic requirement to `>=1.9`
 

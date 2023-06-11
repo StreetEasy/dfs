@@ -1,7 +1,9 @@
+from typing import Optional
+
 import pandas as pd
-from datetime import date
 
 from .core.exceptions import DataFrameValidationError
+from . import __version__
 
 __all__ = ["sort_by_scheme", "generate_scheme", "schema_to_dtypes"]
 
@@ -51,13 +53,22 @@ def generate_scheme(
     exactColumnOrder: bool = False,
     na_thlds: bool = True,
     minmax: bool = True,
-    version: str = f"{date.today():%Y-%m-%d}",
+    version: Optional[str]=None,
 ) -> dict:
-    """generates dummy scheme over given dataframe"""
+    """generates dummy schema over given dataframe
+    
+    """
     schema: dict = {
         "additionalColumns": additionalColumns,
         "exactColumnOrder": exactColumnOrder,
         "version": version,
+        "metadata": dict(
+            'version': version,
+            'generated_with': dict(
+                'dfschema': __version__,
+                'pandas': pd.__version__
+            )
+        )
     }
 
     cols: dict = {"dtype": df.dtypes.astype(str).to_dict()}
@@ -92,7 +103,8 @@ def schema_to_dtypes(schema: dict) -> dict:
     out of the schema.
     """
     try:
-        from sqlalchemy import BIGINT, BOOLEAN, DATE, DATETIME, FLOAT, SMALLINT, VARCHAR
+        from sqlalchemy import (BIGINT, BOOLEAN, DATE, DATETIME, FLOAT,
+                                SMALLINT, VARCHAR)
     except ImportError:
         raise ImportError(
             "`sqlalchemy` is required to use this function. You can install it as extra for this package"
