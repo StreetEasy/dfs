@@ -55,14 +55,16 @@ def generate_scheme(
     version: Optional[str] = None,
 ) -> dict:
     """generates dummy schema over given dataframe"""
-    from dfschema import __version__
+    from importlib.metadata import version
+
+    dfs_version = version("dfs")
 
     schema: dict = {
         "additionalColumns": additionalColumns,
         "exactColumnOrder": exactColumnOrder,
         "metadata": {
             "version": version,
-            "generated_with": {"dfschema": __version__, "pandas": pd.__version__},
+            "generated_with": {"dfschema": dfs_version, "pandas": pd.__version__},
         },
     }
 
