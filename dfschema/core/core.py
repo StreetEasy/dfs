@@ -35,11 +35,11 @@ class MetaData(BaseModel):
         description="version of the schema",
         example="2022-06-12",
     )
-    
-    generated_with: Optional[dict] = Field(
-        None, description="stores versions of dfschema and other packages schema was generated with"
-    )
 
+    generated_with: Optional[dict] = Field(
+        None,
+        description="stores versions of dfschema and other packages schema was generated with",
+    )
 
     custom_settings: Optional[dict] = Field(
         None, description="custom settings. does not affect any logic"
@@ -110,11 +110,13 @@ class DfSchema(BaseModel):  # type: ignore
     def validate_column_presence(self, df: pd.DataFrame) -> None:
         schema_col_names = {col.name for col in self.columns}  # type: ignore
         optional_columns = {col.name for col in self.columns if col.optional}
-        
+
         _validate_column_presence(
-            df, schema_col_names, 
-            optional_columns=optional_columns
-            additionalColumns=self.additionalColumns, root=self
+            df,
+            schema_col_names,
+            optional_columns=optional_columns,
+            additionalColumns=self.additionalColumns,
+            root=self,
         )
 
     def validate_df(self, df: pd.DataFrame, summary: bool = True) -> None:
@@ -239,7 +241,6 @@ class DfSchema(BaseModel):  # type: ignore
             path = Path(path)
 
         try:
-
             if path.suffix == ".json":
                 schema_json = self.json(exclude_none=True, indent=4)
                 with path.open("w") as f:
@@ -263,7 +264,10 @@ class DfSchema(BaseModel):  # type: ignore
             raise DataFrameSchemaError(f"Error wriging schema to file {path}") from e
 
     @classmethod
-    def from_dict(cls, dict_: dict,) -> "DfSchema":
+    def from_dict(
+        cls,
+        dict_: dict,
+    ) -> "DfSchema":
         """create DfSchema from dict.
 
         same as `DfSchema(**dict_)`, but will also migrate old protocol schemas if necessary.
@@ -338,7 +342,10 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
     predicate to select subset.
     - If string, will be interpreted as query for `df.query()`.
     - If dict, keys should be column names, values should be values to exactly match"""
-    predicate: Union[dict, str,] = Field(..., description=_predicate_description)
+    predicate: Union[
+        dict,
+        str,
+    ] = Field(..., description=_predicate_description)
 
     shape: Optional[ShapeSchema] = Field(None, description="shape expectations")
     columns: Optional[List[ColSchema]] = Field([], description="columns expectations")

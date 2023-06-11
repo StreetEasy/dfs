@@ -7,7 +7,7 @@ from .core.exceptions import (
     DataFrameSummaryError,
 )
 
-__version__ = '0.0.11'
+__version__ = "0.0.11"
 
 __all__ = [
     "validate",
@@ -17,5 +17,5 @@ __all__ = [
     "DataFrameSchemaError",
     "DataFrameValidationError",
     "DataFrameSummaryError",
-    "__version__"
+    "__version__",
 ]

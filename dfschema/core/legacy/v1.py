@@ -54,7 +54,9 @@ class V1_DfSchema(BaseModel):
         allow_population_by_field_name = True
 
     version: Optional[str] = Field(
-        None, description="version of the schema", example="2022-06-12",
+        None,
+        description="version of the schema",
+        example="2022-06-12",
     )
 
     protocol_version: float = Field(1.0, description="version of the protocol")

@@ -21,7 +21,7 @@ else:
 def _validate_column_presence(
     df: pd.DataFrame,
     column_names: Tuple[str],
-    optional_columns: Set[str]=set(),
+    optional_columns: Set[str] = set(),
     additionalColumns: bool = True,
     exactColumnOrder: bool = False,
 ) -> None:
@@ -34,7 +34,11 @@ def _validate_column_presence(
             text = f"Some columns should not be in dataframe: {other_cols}"
             raise DataFrameValidationError(text)
 
-    lac_cols = [col for col in column_names if (col not in df.columns) and (col not in optional_columns)]
+    lac_cols = [
+        col
+        for col in column_names
+        if (col not in df.columns) and (col not in optional_columns)
+    ]
     if len(lac_cols) != 0:
         text = f"Some columns are not in dataframe: {lac_cols}"
         raise DataFrameValidationError(text)
@@ -141,7 +145,13 @@ class Distribution(BaseModel):  # type: ignore
 
 
 class Categorical(BaseModel):  # type: ignore
-    value_set: Optional[Union[FrozenSet[int], FrozenSet[float], FrozenSet[str],]] = None
+    value_set: Optional[
+        Union[
+            FrozenSet[int],
+            FrozenSet[float],
+            FrozenSet[str],
+        ]
+    ] = None
     mode: Optional[Literal["oneof", "exact_set", "include"]] = None
     unique: bool = Field(
         False, description="if true, the column must contain only unique values"
@@ -189,7 +199,10 @@ class Categorical(BaseModel):  # type: ignore
 class ColSchema(BaseModel):
     name: str = Field(..., description="Name of the column")
     dtype: Optional[DtypeLiteral] = Field(None, description="Data type of the column")  # type: ignore
-    optional: Optional[bool] = Field(None, description="If true, will not raise exception if columns is not present in dataframe")
+    optional: Optional[bool] = Field(
+        None,
+        description="If true, will not raise exception if columns is not present in dataframe",
+    )
     # accepted for value limitation checks
     _val_accepted_types = {None, "int", "float", "datetime64[ns]"}
 
@@ -198,9 +211,9 @@ class ColSchema(BaseModel):
         ge=0,
         lt=1.0,
         description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than given perecnt of values are empty (Nan)",
-        alias='na_limit'
+        alias="na_limit",
     )
-    
+
     value_limits: Optional[ValueLimits] = Field(
         None, description="Value limits for the column"
     )
