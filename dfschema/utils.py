@@ -3,7 +3,6 @@ from typing import Optional
 import pandas as pd
 
 from .core.exceptions import DataFrameValidationError
-from . import __version__
 
 __all__ = ["sort_by_scheme", "generate_scheme", "schema_to_dtypes"]
 
@@ -56,6 +55,8 @@ def generate_scheme(
     version: Optional[str] = None,
 ) -> dict:
     """generates dummy schema over given dataframe"""
+    from dfschema import __version__
+
     schema: dict = {
         "additionalColumns": additionalColumns,
         "exactColumnOrder": exactColumnOrder,
