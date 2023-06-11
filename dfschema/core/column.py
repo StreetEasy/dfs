@@ -310,7 +310,7 @@ class ColSchema(BaseModel):
         if self.dtype:
             self._validate_dtype(series, root=root)
 
-        if self.na_limit:
+        if self.na_pct_below:
             self._validate_na_limit(series, root=root)
 
         if self.value_limits:
