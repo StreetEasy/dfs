@@ -1,6 +1,6 @@
 import sys
 from datetime import date, datetime
-from typing import List, Optional, FrozenSet, Union, Tuple  # , Pattern
+from typing import List, Optional, FrozenSet, Union, Tuple, Set  # , Pattern
 from warnings import warn
 
 import pandas as pd
@@ -21,6 +21,7 @@ else:
 def _validate_column_presence(
     df: pd.DataFrame,
     column_names: Tuple[str],
+    optional_columns: Set[str]=set(),
     additionalColumns: bool = True,
     exactColumnOrder: bool = False,
 ) -> None:
@@ -33,7 +34,7 @@ def _validate_column_presence(
             text = f"Some columns should not be in dataframe: {other_cols}"
             raise DataFrameValidationError(text)
 
-    lac_cols = [col for col in column_names if col not in df.columns]
+    lac_cols = [col for col in column_names if (col not in df.columns) and (col not in optional_columns)]
     if len(lac_cols) != 0:
         text = f"Some columns are not in dataframe: {lac_cols}"
         raise DataFrameValidationError(text)
@@ -188,7 +189,7 @@ class Categorical(BaseModel):  # type: ignore
 class ColSchema(BaseModel):
     name: str = Field(..., description="Name of the column")
     dtype: Optional[DtypeLiteral] = Field(None, description="Data type of the column")  # type: ignore
-
+    optional: Optional[bool] = Field(None, description="If true, will not raise exception if columns is not present in dataframe")
     # accepted for value limitation checks
     _val_accepted_types = {None, "int", "float", "datetime64[ns]"}
 

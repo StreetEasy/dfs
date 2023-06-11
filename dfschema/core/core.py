@@ -109,8 +109,12 @@ class DfSchema(BaseModel):  # type: ignore
 
     def validate_column_presence(self, df: pd.DataFrame) -> None:
         schema_col_names = {col.name for col in self.columns}  # type: ignore
+        optional_columns = {col.name for col in self.columns if col.optional}
+        
         _validate_column_presence(
-            df, schema_col_names, additionalColumns=self.additionalColumns, root=self
+            df, schema_col_names, 
+            optional_columns=optional_columns
+            additionalColumns=self.additionalColumns, root=self
         )
 
     def validate_df(self, df: pd.DataFrame, summary: bool = True) -> None:
