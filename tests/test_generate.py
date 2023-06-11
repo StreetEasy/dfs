@@ -14,7 +14,8 @@ def test_generate_df1(df1):
         raise Exception(sd, e)
 
     S.validate_df(df1)  # type: ignore
-    assert S.metadata.get("generated_with", {}).get("dfschema") == __version__
+    version = S.metadata.generated_with.dfschema
+    assert version == __version__
 
 
 def test_generate_df4(df4):
