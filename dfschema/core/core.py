@@ -35,6 +35,11 @@ class MetaData(BaseModel):
         description="version of the schema",
         example="2022-06-12",
     )
+    
+    generated_with: Optional[dict] = Field(
+        None, description="stores versions of dfschema and other packages schema was generated with"
+    )
+
 
     custom_settings: Optional[dict] = Field(
         None, description="custom settings. does not affect any logic"
