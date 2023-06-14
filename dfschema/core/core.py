@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Callable, Optional, Union, List
 import json
 from pathlib import Path
@@ -6,44 +5,17 @@ from pathlib import Path
 
 import pandas as pd
 from pydantic import BaseModel, Extra, Field, PrivateAttr
-import sys
 
 from .column import ColSchema, _validate_column_presence
 from .exceptions import DataFrameSchemaError, DataFrameSummaryError, SubsetSummaryError
 from .shape import ShapeSchema
 from .legacy import infer_protocol_version, LegacySchemaRegistry
 from .generate import generate_schema_dict_from_df
+from .metadata import MetaData
+from .config import CURRENT_PROTOCOL_VERSION
 
 # from .utils import SchemaEncoder
 # from .base_config import BaseConfig
-
-
-if sys.version_info >= (3, 8):
-    from typing import Final
-else:
-    from typing_extensions import Final
-
-CURRENT_PROTOCOL_VERSION: Final = 2.0
-
-
-class MetaData(BaseModel):
-    protocol_version: float = Field(
-        CURRENT_PROTOCOL_VERSION, description="protocol version of the schema"
-    )
-    version: Optional[str] = Field(
-        date.today().strftime("%Y-%m-%d"),
-        description="version of the schema",
-        example="2022-06-12",
-    )
-
-    generated_with: Optional[dict] = Field(
-        None,
-        description="stores versions of dfschema and other packages schema was generated with",
-    )
-
-    custom_settings: Optional[dict] = Field(
-        None, description="custom settings. does not affect any logic"
-    )
 
 
 class DfSchema(BaseModel):  # type: ignore

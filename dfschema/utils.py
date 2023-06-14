@@ -1,5 +1,3 @@
-from typing import Optional
-
 import pandas as pd
 
 from .core.exceptions import DataFrameValidationError
@@ -52,20 +50,12 @@ def generate_scheme(
     exactColumnOrder: bool = False,
     na_thlds: bool = True,
     minmax: bool = True,
-    version: Optional[str] = None,
 ) -> dict:
     """generates dummy schema over given dataframe"""
-    from importlib.metadata import version
-
-    dfs_version = version("dfs")
 
     schema: dict = {
         "additionalColumns": additionalColumns,
         "exactColumnOrder": exactColumnOrder,
-        "metadata": {
-            "version": version,
-            "generated_with": {"dfschema": dfs_version, "pandas": pd.__version__},
-        },
     }
 
     cols: dict = {"dtype": df.dtypes.astype(str).to_dict()}
