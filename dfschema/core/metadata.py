@@ -9,7 +9,7 @@ class Generated_With(BaseModel):
     def dfschema(self) -> str:
         from importlib.metadata import version
 
-        return version("dfs")
+        return version("dfschema")
 
     @property
     def pandas(self) -> str:
