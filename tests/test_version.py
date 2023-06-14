@@ -6,7 +6,14 @@ import dfschema
 def test_versions_are_in_sync():
     """Checks if the pyproject.toml and package.__init__.py __version__ are in sync."""
 
-    path = Path(__file__).resolve().parents[2] / "pyproject.toml"
+    try:
+        path = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    except Exception as e:
+        files = Path(__file__).resolve().parents[1]
+        for item in files.iterdir():
+            print(f"{item} - {'dir' if item.is_dir() else 'file'}")
+        raise Exception(e)
+
     pyproject = toml.loads(open(str(path)).read())
     pyproject_version = pyproject["tool"]["poetry"]["version"]
 
