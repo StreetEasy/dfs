@@ -56,7 +56,7 @@ def test_cli_update():
     from dfschema.cli import app
     from dfschema.core.config import CURRENT_PROTOCOL_VERSION
 
-    output_path = "./active_sales_v2.json"
+    output_path = "active_sales_v2.json"
     result = runner.invoke(
         app,
         [
