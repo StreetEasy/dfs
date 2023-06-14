@@ -109,7 +109,7 @@ def update(
 ):
     allowed = (".json", ".yaml", ".yml")
     for name, f in zip(("input", "output"), (input, output)):
-        if not any((str(f).endswith(el) for el in allowed)):
+        if f.suffix not in allowed:
             raise ValueError(
                 f"Argument `{name}` should end with one of {allowed}, got {f}"
             )
