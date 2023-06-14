@@ -69,4 +69,4 @@ def test_cli_update():
     assert result.exit_code == 0, result.stdout
 
     string_to_be = f'Writing with `{CURRENT_PROTOCOL_VERSION}` to `{output_path}`"'
-    assert string_to_be in result.stderr
+    assert string_to_be in result.stdout
