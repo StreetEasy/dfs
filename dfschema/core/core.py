@@ -1,4 +1,3 @@
-from datetime import date
 from typing import Callable, Optional, Union, List
 import json
 from pathlib import Path
@@ -6,39 +5,17 @@ from pathlib import Path
 
 import pandas as pd
 from pydantic import BaseModel, Extra, Field, PrivateAttr
-import sys
 
 from .column import ColSchema, _validate_column_presence
 from .exceptions import DataFrameSchemaError, DataFrameSummaryError, SubsetSummaryError
 from .shape import ShapeSchema
 from .legacy import infer_protocol_version, LegacySchemaRegistry
 from .generate import generate_schema_dict_from_df
+from .metadata import MetaData
+from .config import CURRENT_PROTOCOL_VERSION
 
 # from .utils import SchemaEncoder
 # from .base_config import BaseConfig
-
-
-if sys.version_info >= (3, 8):
-    from typing import Final
-else:
-    from typing_extensions import Final
-
-CURRENT_PROTOCOL_VERSION: Final = 2.0
-
-
-class MetaData(BaseModel):
-    protocol_version: float = Field(
-        CURRENT_PROTOCOL_VERSION, description="protocol version of the schema"
-    )
-    version: Optional[str] = Field(
-        date.today().strftime("%Y-%m-%d"),
-        description="version of the schema",
-        example="2022-06-12",
-    )
-
-    custom_settings: Optional[dict] = Field(
-        None, description="custom settings. does not affect any logic"
-    )
 
 
 class DfSchema(BaseModel):  # type: ignore
@@ -104,8 +81,14 @@ class DfSchema(BaseModel):  # type: ignore
 
     def validate_column_presence(self, df: pd.DataFrame) -> None:
         schema_col_names = {col.name for col in self.columns}  # type: ignore
+        optional_columns = {col.name for col in self.columns if col.optional}
+
         _validate_column_presence(
-            df, schema_col_names, additionalColumns=self.additionalColumns, root=self
+            df,
+            schema_col_names,
+            optional_columns=optional_columns,
+            additionalColumns=self.additionalColumns,
+            root=self,
         )
 
     def validate_df(self, df: pd.DataFrame, summary: bool = True) -> None:
@@ -230,7 +213,6 @@ class DfSchema(BaseModel):  # type: ignore
             path = Path(path)
 
         try:
-
             if path.suffix == ".json":
                 schema_json = self.json(exclude_none=True, indent=4)
                 with path.open("w") as f:
@@ -254,7 +236,10 @@ class DfSchema(BaseModel):  # type: ignore
             raise DataFrameSchemaError(f"Error wriging schema to file {path}") from e
 
     @classmethod
-    def from_dict(cls, dict_: dict,) -> "DfSchema":
+    def from_dict(
+        cls,
+        dict_: dict,
+    ) -> "DfSchema":
         """create DfSchema from dict.
 
         same as `DfSchema(**dict_)`, but will also migrate old protocol schemas if necessary.
@@ -329,7 +314,10 @@ class SubsetSchema(BaseModel, extra=Extra.forbid, arbitrary_types_allowed=True):
     predicate to select subset.
     - If string, will be interpreted as query for `df.query()`.
     - If dict, keys should be column names, values should be values to exactly match"""
-    predicate: Union[dict, str,] = Field(..., description=_predicate_description)
+    predicate: Union[
+        dict,
+        str,
+    ] = Field(..., description=_predicate_description)
 
     shape: Optional[ShapeSchema] = Field(None, description="shape expectations")
     columns: Optional[List[ColSchema]] = Field([], description="columns expectations")

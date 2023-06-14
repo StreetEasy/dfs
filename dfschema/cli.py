@@ -100,3 +100,22 @@ def generate(
         raise ValueError(
             f"Unsupported extension: {format}, should be one of [json, yaml]"
         )
+
+
+@app.command()
+def update(
+    input: Path = typer.Argument(..., help="input schema file"),
+    output: Path = typer.Argument(..., help="output schema file"),
+):
+    allowed = (".json", ".yaml", ".yml")
+    for name, f in zip(("input", "output"), (input, output)):
+        if f.suffix not in allowed:
+            raise ValueError(
+                f"Argument `{name}` should end with one of {allowed}, got {f}"
+            )
+
+    schema = DfSchema.from_file(input)
+    protocol_version = schema.metadata.protocol_version
+    print(f"Writing with `{protocol_version}` to `{output}`")
+
+    schema.to_file(output)

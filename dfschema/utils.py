@@ -1,5 +1,4 @@
 import pandas as pd
-from datetime import date
 
 from .core.exceptions import DataFrameValidationError
 
@@ -51,13 +50,12 @@ def generate_scheme(
     exactColumnOrder: bool = False,
     na_thlds: bool = True,
     minmax: bool = True,
-    version: str = f"{date.today():%Y-%m-%d}",
 ) -> dict:
-    """generates dummy scheme over given dataframe"""
+    """generates dummy schema over given dataframe"""
+
     schema: dict = {
         "additionalColumns": additionalColumns,
         "exactColumnOrder": exactColumnOrder,
-        "version": version,
     }
 
     cols: dict = {"dtype": df.dtypes.astype(str).to_dict()}

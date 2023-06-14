@@ -1,6 +1,6 @@
 import sys
 from datetime import date, datetime
-from typing import List, Optional, FrozenSet, Union, Tuple  # , Pattern
+from typing import List, Optional, FrozenSet, Union, Tuple, Set  # , Pattern
 from warnings import warn
 
 import pandas as pd
@@ -21,6 +21,7 @@ else:
 def _validate_column_presence(
     df: pd.DataFrame,
     column_names: Tuple[str],
+    optional_columns: Set[str] = set(),
     additionalColumns: bool = True,
     exactColumnOrder: bool = False,
 ) -> None:
@@ -33,7 +34,11 @@ def _validate_column_presence(
             text = f"Some columns should not be in dataframe: {other_cols}"
             raise DataFrameValidationError(text)
 
-    lac_cols = [col for col in column_names if col not in df.columns]
+    lac_cols = [
+        col
+        for col in column_names
+        if (col not in df.columns) and (col not in optional_columns)
+    ]
     if len(lac_cols) != 0:
         text = f"Some columns are not in dataframe: {lac_cols}"
         raise DataFrameValidationError(text)
@@ -140,7 +145,13 @@ class Distribution(BaseModel):  # type: ignore
 
 
 class Categorical(BaseModel):  # type: ignore
-    value_set: Optional[Union[FrozenSet[int], FrozenSet[float], FrozenSet[str],]] = None
+    value_set: Optional[
+        Union[
+            FrozenSet[int],
+            FrozenSet[float],
+            FrozenSet[str],
+        ]
+    ] = None
     mode: Optional[Literal["oneof", "exact_set", "include"]] = None
     unique: bool = Field(
         False, description="if true, the column must contain only unique values"
@@ -188,16 +199,21 @@ class Categorical(BaseModel):  # type: ignore
 class ColSchema(BaseModel):
     name: str = Field(..., description="Name of the column")
     dtype: Optional[DtypeLiteral] = Field(None, description="Data type of the column")  # type: ignore
-
+    optional: Optional[bool] = Field(
+        None,
+        description="If true, will not raise exception if columns is not present in dataframe",
+    )
     # accepted for value limitation checks
     _val_accepted_types = {None, "int", "float", "datetime64[ns]"}
 
-    na_limit: Optional[float] = Field(
+    na_pct_below: Optional[float] = Field(
         None,
         ge=0,
         lt=1.0,
-        description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than that fraction of values are empty (Nan)",
+        description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than given perecnt of values are empty (Nan)",
+        alias="na_limit",
     )
+
     value_limits: Optional[ValueLimits] = Field(
         None, description="Value limits for the column"
     )
@@ -257,8 +273,8 @@ class ColSchema(BaseModel):
     def _validate_na_limit(self, series: pd.Series) -> None:
         na_fraction = series.isnull().mean()
 
-        if na_fraction > self.na_limit:  # type: ignore
-            text = f"Column `{self.name}` has too many NAs: {na_fraction}, should be <= {self.na_limit}"
+        if na_fraction > self.na_pct_below:  # type: ignore
+            text = f"Column `{self.name}` has too many NAs: {na_fraction}, should be <= {self.na_pct_below}"
             raise DataFrameValidationError(text)
 
     @exception_collector
@@ -294,7 +310,7 @@ class ColSchema(BaseModel):
         if self.dtype:
             self._validate_dtype(series, root=root)
 
-        if self.na_limit:
+        if self.na_pct_below:
             self._validate_na_limit(series, root=root)
 
         if self.value_limits:

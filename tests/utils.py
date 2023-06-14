@@ -4,7 +4,6 @@ from hypothesis.extra.pandas import column, data_frames
 
 
 def generate_hypothesis_from_schema(schema: dict):
-
     columns = schema["columns"]
 
     if isinstance(columns, list):
