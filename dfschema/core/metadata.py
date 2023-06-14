@@ -1,13 +1,19 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+import sys
 from datetime import date
+from typing import Optional
+
+from pydantic import BaseModel, Field
+
 from .config import CURRENT_PROTOCOL_VERSION
 
 
 class Generated_With(BaseModel):
     @property
     def dfschema(self) -> str:
-        from importlib.metadata import version
+        if sys.version_info >= (3, 8):
+            from importlib.metadata import version
+        else:
+            from importlib_metadata import version
 
         return version("dfschema")
 
