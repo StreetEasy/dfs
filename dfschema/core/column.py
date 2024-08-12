@@ -52,6 +52,21 @@ def _validate_column_presence(
             raise DataFrameValidationError(text)
 
 
+def _is_string(series: pd.Series, strict:bool=False) -> bool:
+    '''Check if series is string-like
+    NOTE: Pandas 2 does not accept object dtype as string;
+    THis is a workaround. 
+    TODO: explicitly check for object dtype and raise warning
+    '''
+    result = pd.api.types.is_string_dtype(series) or pd.isnull(series).all()
+    if strict:
+        return result
+    
+    object_like = pd.api.types.is_object_dtype(series)
+
+    return result or object_like
+
+
 class ValueLimits(BaseModel):  # type: ignore
     min: Union[float, date, datetime, str, None] = None
     max: Union[float, date, datetime, str, None] = None
@@ -247,12 +262,15 @@ class ColSchema(BaseModel):
                 warn(f"Unsupported dtype: {self.dtype}")
         return None
 
+
+
+    
     # abstract dtypes with a corresponding checker
     _dtype_test_func = {
         "numeric": pd.api.types.is_numeric_dtype,
         "int": pd.api.types.is_integer_dtype,
         "float": pd.api.types.is_float_dtype,
-        "string": lambda s: (pd.api.types.is_string_dtype(s) or pd.isnull(s).all()),
+        "string": _is_string,
         "timedelta64[ns]": pd.api.types.is_timedelta64_dtype,
     }
 

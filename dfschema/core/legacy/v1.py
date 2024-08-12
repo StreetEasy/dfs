@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Extra, Field, PositiveInt
+from pydantic.v1 import BaseModel, Extra, Field, PositiveInt
 
 # import json
 
