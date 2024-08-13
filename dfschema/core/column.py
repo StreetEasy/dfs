@@ -52,16 +52,16 @@ def _validate_column_presence(
             raise DataFrameValidationError(text)
 
 
-def _is_string(series: pd.Series, strict:bool=False) -> bool:
-    '''Check if series is string-like
+def _is_string(series: pd.Series, strict: bool = False) -> bool:
+    """Check if series is string-like
     NOTE: Pandas 2 does not accept object dtype as string;
-    THis is a workaround. 
+    THis is a workaround.
     TODO: explicitly check for object dtype and raise warning
-    '''
+    """
     result = pd.api.types.is_string_dtype(series) or pd.isnull(series).all()
     if strict:
         return result
-    
+
     object_like = pd.api.types.is_object_dtype(series)
 
     return result or object_like
@@ -227,7 +227,7 @@ class ColSchema(BaseModel):
         lt=1.0,
         description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than given perecnt of values are empty (Nan)",
         alias="na_limit",
-        alias_priority=2
+        alias_priority=2,
     )
 
     value_limits: Optional[ValueLimits] = Field(
@@ -264,9 +264,6 @@ class ColSchema(BaseModel):
                 warn(f"Unsupported dtype: {self.dtype}")
         return None
 
-
-
-    
     # abstract dtypes with a corresponding checker
     _dtype_test_func = {
         "numeric": pd.api.types.is_numeric_dtype,

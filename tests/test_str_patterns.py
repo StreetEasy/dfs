@@ -11,7 +11,7 @@ def str_df() -> pd.DataFrame:
             "z": ["A-1", "A-10", "A-12", None],
         }
     )
-    
+
     for col in df.columns:
         df[col] = df[col].astype("string")
     return df

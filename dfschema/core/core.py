@@ -282,7 +282,10 @@ class DfSchema(BaseModel):  # type: ignore
         """
 
         schema = generate_schema_dict_from_df(df)
-        schema["metadata"] = {"protocol_version": 2.0, "version": datetime.now().isoformat()}
+        schema["metadata"] = {
+            "protocol_version": 2.0,
+            "version": datetime.now().isoformat(),
+        }
         subset_schemas = []
         if subset_predicates:
             for predicate in subset_predicates:
@@ -296,7 +299,7 @@ class DfSchema(BaseModel):  # type: ignore
 
         if return_dict:
             return schema
-        
+
         return cls(**schema)
 
 

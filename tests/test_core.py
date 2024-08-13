@@ -2,7 +2,6 @@ import pytest
 from pydantic.v1.error_wrappers import ValidationError
 
 
-
 def test_schema_objects(good_schema: dict):
     from dfschema.core.core import DfSchema
 
