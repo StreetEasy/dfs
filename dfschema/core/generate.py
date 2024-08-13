@@ -10,12 +10,12 @@ def generate_schema_dict_from_df(df: pd.DataFrame) -> dict:
     columns = []
 
     for col in df.columns:
-        cd = {"name": col}
+        cd: dict = {"name": col}
 
         cd["dtype"] = (
             "string" if pd.api.types.is_string_dtype(df[col]) else str(df[col].dtype)
         )
-        cd["na_limit"] = max(0.9999, (df[col].isnull().mean() + 0.1))  # +10%
+        cd["na_pct_below"] = max(0.01, (df[col].isnull().mean() + 0.1))  # +10%
 
         if pd.api.types.is_numeric_dtype(df[col]):
             add_range = 0.05 * df[col].std()
