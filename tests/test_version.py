@@ -1,7 +1,7 @@
 try:
     import toml
 except ImportError:
-    import tomli as toml
+    import tomllib as toml
 from pathlib import Path
 import dfschema
 
