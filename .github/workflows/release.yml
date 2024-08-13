@@ -11,8 +11,8 @@ jobs:
     if: "!github.event.release.prerelease"
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
-        poetry-version: [1.2]
+        python-version: [3.8, 3.9, 3.10, 3.11]
+        poetry-version: [1.8]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
@@ -72,15 +72,15 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Set up Python 3.7
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-           python-version: 3.7
+           python-version: 3.8
 
-      - name: Set up Poetry 1.2
+      - name: Set up Poetry 1.8
         uses: abatilo/actions-poetry@v2.1.6
         with:
-          poetry-version: 1.2
+          poetry-version: 1.8
 
       - name: Set up cache
         uses: actions/cache@v1
