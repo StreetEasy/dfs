@@ -5,6 +5,8 @@
 Fixed:
 - using `na_pct_below`
 - `from_df` now includes metadata
+- `from_df` now generates correct `na_pct_below` (0.01) for full datasets
+
 Changed:
 - bumped minimum python version to 3.8
 - Pydantic migrated to v2
