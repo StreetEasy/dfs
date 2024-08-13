@@ -4,8 +4,9 @@ from pydantic.error_wrappers import ValidationError
 
 def test_validate_df_v1_invalid(bad_schema_v1):
     from dfschema.core.core import DfSchema
+    from pydantic.v1.error_wrappers import ValidationError as v1ValidationError
 
-    with pytest.raises((ValidationError, TypeError)):
+    with pytest.raises((v1ValidationError, ValidationError, TypeError)):
         DfSchema.from_dict(bad_schema_v1["schema"])
 
 

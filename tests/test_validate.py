@@ -1,5 +1,5 @@
 import pytest
-
+from pathlib import Path
 
 good_schemas = [
     {"shape": {"rows": 4, "cols": 2}},
@@ -144,3 +144,35 @@ def test_validate_df3_raises(df3, schema):
 
     with pytest.raises(DataFrameValidationError):
         validate(df3, schema)
+
+
+prediction_good_schemas = [
+    Path(__file__).parent / "test_schemas/v2/good/v2_predictions.json",
+    Path(__file__).parent / "test_schemas/v2/good/v2_predictions2.json",
+]
+
+
+@pytest.fixture
+def df4():
+    import pandas as pd
+
+    df = pd.DataFrame(
+        {
+            "value": [100000, 200000, 300000, 500000],
+            "inferred_at": ["2020-01-01", "2020-01-02", "2020-01-03", "2020-01-03"],
+            "trained_at": ["2020-01-01", "2020-01-02", "2020-01-03", "2020-01-03"],
+            "model": ["main", "certainty_low", "certainty_hight", "certainty_median"],
+            "version": ["1.0.0", "1.0.1", "1.0.2", "1.0.3"],
+        }
+    )
+    for col in ["inferred_at", "trained_at"]:
+        df[col] = pd.to_datetime(df[col])
+    return df
+
+
+@pytest.mark.parametrize("schema", prediction_good_schemas)
+def test_validate_df4(df4, schema):
+    from dfschema import DfSchema
+
+    schema = DfSchema.from_file(schema)
+    schema.validate_df(df4)

@@ -4,7 +4,7 @@ from typing import List, Optional, FrozenSet, Union, Tuple, Set  # , Pattern
 from warnings import warn
 
 import pandas as pd
-from pydantic import BaseModel, Extra, Field  # , validator
+from pydantic.v1 import BaseModel, Extra, Field  # , validator
 
 from .dtype import DtypeAliasPool, DtypeLiteral
 from .exceptions import DataFrameSchemaError, DataFrameValidationError
@@ -50,6 +50,21 @@ def _validate_column_presence(
                 f"Order of columns is not exact, should be {column_names}, got {dfcols}"
             )
             raise DataFrameValidationError(text)
+
+
+def _is_string(series: pd.Series, strict: bool = False) -> bool:
+    """Check if series is string-like
+    NOTE: Pandas 2 does not accept object dtype as string;
+    THis is a workaround.
+    TODO: explicitly check for object dtype and raise warning
+    """
+    result = pd.api.types.is_string_dtype(series) or pd.isnull(series).all()
+    if strict:
+        return result
+
+    object_like = pd.api.types.is_object_dtype(series)
+
+    return result or object_like
 
 
 class ValueLimits(BaseModel):  # type: ignore
@@ -212,6 +227,7 @@ class ColSchema(BaseModel):
         lt=1.0,
         description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than given perecnt of values are empty (Nan)",
         alias="na_limit",
+        alias_priority=2,
     )
 
     value_limits: Optional[ValueLimits] = Field(
@@ -234,6 +250,7 @@ class ColSchema(BaseModel):
     class Config:
         extra = Extra.forbid
         use_enum_values = True
+        allow_population_by_field_name = True
 
     def _map_dtype(
         self, dtype: Optional[str] = None, raise_error: bool = True
@@ -252,7 +269,7 @@ class ColSchema(BaseModel):
         "numeric": pd.api.types.is_numeric_dtype,
         "int": pd.api.types.is_integer_dtype,
         "float": pd.api.types.is_float_dtype,
-        "string": lambda s: (pd.api.types.is_string_dtype(s) or pd.isnull(s).all()),
+        "string": _is_string,
         "timedelta64[ns]": pd.api.types.is_timedelta64_dtype,
     }
 

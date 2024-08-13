@@ -1,0 +1,51 @@
+{
+    "metadata": {
+        "protocol_version": 2.0,
+        "version": "2024-03-04",
+        "generated_with": {}
+    },
+    
+    "columns": [
+        {
+            "name": "value",
+            "dtype": "number",
+            "na_limit": 0.01,
+            "value_limits": {
+                "min": 100000,
+                "max": 50000000
+            }
+        },
+        {
+            "name": "inferred_at",
+            "dtype": "datetime64[ns]",
+            "na_limit": 0.01
+        },
+        {
+            "name": "trained_at",
+            "dtype": "datetime64[ns]",
+            "na_limit": 0.01
+        },
+        {
+            "name": "model",
+            "dtype": "string",
+            "na_limit": 0.01,
+            "categorical": {
+                "value_set": [
+                    "main",
+                    "certainty_low",
+                    "certainty_hight",
+                    "certainty_median"
+                ],
+                "mode": "exact_set"
+            }
+        },
+        {
+            "name": "version",
+            "dtype": "string",
+            "na_limit": 0.01,
+            "str_pattern": "^\\d+\\.\\d+\\.\\d+.*$"
+        }
+    ],
+    "additionalColumns": false,
+    "exactColumnOrder": false
+}

@@ -1,4 +1,7 @@
-import toml
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
 from pathlib import Path
 import dfschema
 
@@ -14,7 +17,7 @@ def test_versions_are_in_sync():
             print(f"{item} - {'dir' if item.is_dir() else 'file'}")
         raise Exception(e)
 
-    pyproject = toml.loads(open(str(path)).read())
+    pyproject = tomllib.loads(open(str(path)).read())
     pyproject_version = pyproject["tool"]["poetry"]["version"]
 
     package_init_version = dfschema.__version__
