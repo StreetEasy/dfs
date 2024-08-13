@@ -4,13 +4,17 @@ import pandas as pd
 
 @pytest.fixture
 def str_df() -> pd.DataFrame:
-    return pd.DataFrame(
+    df = pd.DataFrame(
         {
             "x": ["A-1", "A-10", "Z-12", None],
             "y": ["A-1 APT", "A-10 PH", "Z-12 THS", None],
             "z": ["A-1", "A-10", "A-12", None],
         }
     )
+    
+    for col in df.columns:
+        df[col] = df[col].astype("string")
+    return df
 
 
 def test_string_matching(str_df):

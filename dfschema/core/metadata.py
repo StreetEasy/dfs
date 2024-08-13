@@ -2,7 +2,7 @@ import sys
 from datetime import date
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 from .config import CURRENT_PROTOCOL_VERSION
 

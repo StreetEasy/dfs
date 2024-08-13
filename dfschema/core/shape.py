@@ -1,6 +1,6 @@
 from typing import Optional
 import pandas as pd
-from pydantic import BaseModel, Field, PositiveInt, Extra
+from pydantic.v1 import BaseModel, Field, PositiveInt, Extra
 
 from .exceptions import DataFrameValidationError
 from .collector import exception_collector

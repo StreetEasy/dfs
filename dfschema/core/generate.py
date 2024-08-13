@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def generate_schema_dict_from_df(df: pd.DataFrame) -> dict:
     """
     generate Schema object from given dataframe.

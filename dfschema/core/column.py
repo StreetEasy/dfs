@@ -4,7 +4,7 @@ from typing import List, Optional, FrozenSet, Union, Tuple, Set  # , Pattern
 from warnings import warn
 
 import pandas as pd
-from pydantic import BaseModel, Extra, Field  # , validator
+from pydantic.v1 import BaseModel, Extra, Field  # , validator
 
 from .dtype import DtypeAliasPool, DtypeLiteral
 from .exceptions import DataFrameSchemaError, DataFrameValidationError
@@ -227,6 +227,7 @@ class ColSchema(BaseModel):
         lt=1.0,
         description="limit of missing values. If set to true, will raise if all values are empty. If set to a number, will raise if more than given perecnt of values are empty (Nan)",
         alias="na_limit",
+        alias_priority=2
     )
 
     value_limits: Optional[ValueLimits] = Field(
@@ -249,6 +250,7 @@ class ColSchema(BaseModel):
     class Config:
         extra = Extra.forbid
         use_enum_values = True
+        allow_population_by_field_name = True
 
     def _map_dtype(
         self, dtype: Optional[str] = None, raise_error: bool = True

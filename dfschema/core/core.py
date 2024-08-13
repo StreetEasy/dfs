@@ -1,10 +1,10 @@
 from typing import Callable, Optional, Union, List
 import json
 from pathlib import Path
-
+from datetime import datetime
 
 import pandas as pd
-from pydantic import BaseModel, Extra, Field, PrivateAttr
+from pydantic.v1 import BaseModel, Extra, Field, PrivateAttr
 
 from .column import ColSchema, _validate_column_presence
 from .exceptions import DataFrameSchemaError, DataFrameSummaryError, SubsetSummaryError
@@ -30,7 +30,7 @@ class DfSchema(BaseModel):  # type: ignore
         arbitrary_types_allowed = True
 
     metadata: Optional[MetaData] = Field(
-        MetaData(),
+        MetaData,
         description="optional metadata, including version and protocol version",
     )
 
@@ -197,7 +197,7 @@ class DfSchema(BaseModel):  # type: ignore
                 )
             return cls.from_dict(schema)
         except Exception as e:
-            raise DataFrameSchemaError(f"Error loading schema from file {path}") from e
+            raise DataFrameSchemaError(f"Error loading schema from file {path}: {e}")
 
     def to_file(self, path: Union[str, Path]) -> None:
         """write chema to file
@@ -233,7 +233,7 @@ class DfSchema(BaseModel):  # type: ignore
                 )
 
         except Exception as e:
-            raise DataFrameSchemaError(f"Error wriging schema to file {path}") from e
+            raise DataFrameSchemaError(f"Error wriging schema to file {path}: {e}")
 
     @classmethod
     def from_dict(
@@ -282,10 +282,11 @@ class DfSchema(BaseModel):  # type: ignore
         """
 
         schema = generate_schema_dict_from_df(df)
+        schema["metadata"] = {"protocol_version": 2.0, "version": datetime.now().isoformat()}
         subset_schemas = []
         if subset_predicates:
             for predicate in subset_predicates:
-                filtered = SubsetSchema.filter_df(df, predicate)
+                filtered = SubsetSchema._filter(df, predicate)
 
                 subset_schema = generate_schema_dict_from_df(filtered)
                 subset_schema["predicate"] = predicate
@@ -295,7 +296,7 @@ class DfSchema(BaseModel):  # type: ignore
 
         if return_dict:
             return schema
-
+        
         return cls(**schema)
 
 
