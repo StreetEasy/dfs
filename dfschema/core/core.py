@@ -224,7 +224,7 @@ class DfSchema(BaseModel):  # type: ignore
                     import yaml
 
                     with path.open("w") as f:
-                        yaml.dump(schema_dict, f)
+                        yaml.dump(schema_dict, f, default_flow_style=False)
                 except ImportError:
                     raise ImportError("PyYaml is required to load yaml files")
             else:

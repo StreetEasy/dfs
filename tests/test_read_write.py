@@ -31,7 +31,7 @@ def test_write_schema_file(format, sample_df):
     from dfschema import DfSchema
     from tempfile import TemporaryDirectory
 
-    schema = DfSchema.from_df(sample_df)
+    schema: DfSchema = DfSchema.from_df(sample_df)  # type: ignore
 
     # create a temporary directory using the context manager
     with TemporaryDirectory() as tmpdirname:
@@ -44,7 +44,10 @@ def test_write_schema_file(format, sample_df):
         if format == "yml":
             import yaml
 
-            schema_structure = yaml.safe_load(txt)
+            try:
+                schema_structure = yaml.safe_load(txt)
+            except Exception as e:
+                raise Exception(txt) from e
         elif format == "json":
             import json
 

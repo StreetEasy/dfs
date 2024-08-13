@@ -53,18 +53,20 @@ def test_cli_validate_error():
 
 
 def test_cli_update():
+    from tempfile import TemporaryDirectory
     from dfschema.cli import app
     from dfschema.core.config import CURRENT_PROTOCOL_VERSION
 
-    output_path = "active_sales_v2.json"
-    result = runner.invoke(
-        app,
-        [
-            "update",
-            "tests/test_schemas/v1/good/active_sales.json",
-            output_path,
-        ],
-    )
+    with TemporaryDirectory() as tmpdirname:
+        output_path = f"{tmpdirname}/active_sales_v2.json"
+        result = runner.invoke(
+            app,
+            [
+                "update",
+                "tests/test_schemas/v1/good/active_sales.json",
+                output_path,
+            ],
+        )
 
     assert result.exit_code == 0, result.stdout
 
