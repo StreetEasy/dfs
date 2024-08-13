@@ -13,4 +13,4 @@ if __name__ == "__main__":
 
         path = f"./tests/test_schemas/v2/bad/{file.stem}.json"
         with open(path, "w") as f:
-            f.write(schema.model_dump_json(indent=2))
+            f.write(schema.json(indent=2))
