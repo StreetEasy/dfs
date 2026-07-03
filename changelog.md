@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.1.0
+
+Changed:
+- Switched project tooling from Poetry to uv (build backend now hatchling)
+
 ### v0.0.12
 
 Fixed:

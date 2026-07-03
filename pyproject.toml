@@ -1,6 +1,6 @@
 [project]
 name = "dfschema"
-version = "0.0.12"
+version = "0.1.0"
 description = "lightweight pandas.DataFrame schema"
 authors = [{ name = "Philipp", email = "philippk@zillowgroup.com" }]
 readme = "README.md"
