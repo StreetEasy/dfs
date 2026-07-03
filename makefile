@@ -1,15 +1,15 @@
 
 tests:
-	poetry run python -m pytest
+	uv run python -m pytest
 
 jshema:
-	poetry run python scripts/generate_jsonschema.py
+	uv run python scripts/generate_jsonschema.py
 
 serve_docs:
-	poetry run mkdocs serve
+	uv run mkdocs serve
 
 docs:
-	poetry run mkdocs build -f .config/mkdocs/mkdocs.yml
+	uv run mkdocs build -f .config/mkdocs/mkdocs.yml
 
 changelog:
-	poetry run gitchangelog
+	uv run gitchangelog
