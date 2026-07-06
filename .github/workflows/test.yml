@@ -17,43 +17,32 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8, 3.9, "3.10", 3.11]
-        poetry-version: [1.8]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
            python-version: ${{ matrix.python-version }}
-      - name: Set up Poetry ${{ matrix.poetry-version }}
-        uses: abatilo/actions-poetry@v2.1.6
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
 
-      - name: Set up cache
-        uses: actions/cache@v1
-        id: cache
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
-
-      - name: Ensure cache is healthy
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
+          enable-cache: true
 
       - name: Install dependencies
-        run: |
-            poetry install
+        run: uv sync --all-extras
+
       - name: Lint with flake8
         run: |
             # stop the build if there are Python syntax errors or undefined names
-            poetry run flake8 . --count --max-line-length=127 --show-source --statistics
+            uv run flake8 . --count --max-line-length=127 --show-source --statistics
+
       - name: Run tests
-        run: |
-            poetry run pytest
+        run: uv run pytest

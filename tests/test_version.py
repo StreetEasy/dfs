@@ -18,7 +18,7 @@ def test_versions_are_in_sync():
         raise Exception(e)
 
     pyproject = tomllib.loads(open(str(path)).read())
-    pyproject_version = pyproject["tool"]["poetry"]["version"]
+    pyproject_version = pyproject["project"]["version"]
 
     package_init_version = dfschema.__version__
 
